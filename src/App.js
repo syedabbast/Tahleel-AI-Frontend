@@ -3,7 +3,8 @@ import { Search, Shield, TrendingUp, Target, Users, Calendar, AlertCircle, Troph
 import axios from 'axios';
 import './App.css';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+// Add this line near the top of App.js, after imports
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://tahleel-ai-backend.onrender.com/api';
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('login');
