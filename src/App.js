@@ -3,8 +3,8 @@ import { Search, Shield, TrendingUp, Target, Users, Calendar, AlertCircle, Troph
 import axios from 'axios';
 import './App.css';
 
-// Add this line near the top of App.js, after imports
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://tahleel-ai-backend.onrender.com/api';
+// FIXED API URL - pointing to your Render backend
+const API_BASE_URL = 'https://tahleel-ai-backend.onrender.com/api';
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('login');
@@ -44,15 +44,18 @@ const App = () => {
     setError('');
     
     try {
-      const response = await axios.post(`${API_BASE_URL}/analyze`, {
+      console.log('Sending request to:', `${API_BASE_URL}/analysis`);
+      const response = await axios.post(`${API_BASE_URL}/analysis`, {
         opponent: opponent
+      }, {
+        timeout: 30000 // 30 second timeout
       });
       
       setAnalysisData(response.data);
       setCurrentPage('strategy');
     } catch (err) {
-      setError('Failed to analyze team. Please try again.');
       console.error('Analysis error:', err);
+      setError(`Failed to analyze team: ${err.message}`);
     } finally {
       setLoading(false);
     }
