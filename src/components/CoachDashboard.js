@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { 
   Trophy, Users, Target, BarChart3, Calendar, Bell, Settings, 
-  Search, Filter, Plus, Eye, TrendingUp, AlertCircle,
+  Search, Filter, Plus, TrendingUp, AlertCircle,
   Activity, Zap, Shield, PlayCircle, 
-  FileText, Download, ChevronRight, Star, Medal,
+  FileText, ChevronRight, Star,
   Heart, Brain, Timer, Flag, Home, 
-  Video, Clipboard
+  Video
 } from 'lucide-react';
 
 const CoachDashboard = () => {
