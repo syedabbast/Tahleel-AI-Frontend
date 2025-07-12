@@ -10,7 +10,6 @@ const API_BASE_URL = 'https://tahleel-ai-backend.onrender.com/api';
 const App = () => {
   const [currentPage, setCurrentPage] = useState('login');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userRole, setUserRole] = useState('user'); // Added for coach/user distinction
   const [loading, setLoading] = useState(false);
   const [analysisData, setAnalysisData] = useState(null);
   const [error, setError] = useState('');
@@ -21,7 +20,6 @@ const App = () => {
     const role = localStorage.getItem('tahleel_role') || 'user';
     if (auth === 'true') {
       setIsAuthenticated(true);
-      setUserRole(role);
       setCurrentPage(role === 'coach' ? 'coach-dashboard' : 'main');
     }
   }, []);
@@ -29,14 +27,12 @@ const App = () => {
   const handleLogin = (password) => {
     if (password === 'tahleel2025') {
       setIsAuthenticated(true);
-      setUserRole('user');
       localStorage.setItem('tahleel_auth', 'true');
       localStorage.setItem('tahleel_role', 'user');
       setCurrentPage('main');
       return true;
     } else if (password === 'coach2025') {
       setIsAuthenticated(true);
-      setUserRole('coach');
       localStorage.setItem('tahleel_auth', 'true');
       localStorage.setItem('tahleel_role', 'coach');
       setCurrentPage('coach-dashboard');
@@ -47,7 +43,6 @@ const App = () => {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    setUserRole('user');
     localStorage.removeItem('tahleel_auth');
     localStorage.removeItem('tahleel_role');
     setCurrentPage('login');
