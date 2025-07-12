@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Shield, TrendingUp, Target, Users, Calendar, AlertCircle, Trophy, BarChart3, Eye, Building, Check, Crown, ChevronRight, CheckCircle, Star, Zap } from 'lucide-react';
+import { Search, Shield, TrendingUp, Target, Users, Calendar, AlertCircle, Trophy, BarChart3, Eye, Building, Crown, ChevronRight, Star } from 'lucide-react';
 import axios from 'axios';
 import './App.css';
 
