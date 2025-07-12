@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Trophy, Users, Target, BarChart3, Calendar, Bell, Settings, 
-  Search, Filter, Plus, Edit, Eye, TrendingUp, AlertCircle,
-  Clock, MapPin, Activity, Zap, Shield, PlayCircle, MessageSquare,
-  FileText, Download, Share2, ChevronRight, Star, Medal,
-  User, Heart, Brain, Timer, Flag, Crosshair, Home, 
-  LineChart, BookOpen, Video, Clipboard
+  Search, Filter, Plus, Eye, TrendingUp, AlertCircle,
+  Activity, Zap, Shield, PlayCircle, 
+  FileText, Download, ChevronRight, Star, Medal,
+  Heart, Brain, Timer, Flag, Home, 
+  Video, Clipboard
 } from 'lucide-react';
 
 const CoachDashboard = () => {
   const [activeModule, setActiveModule] = useState('dashboard');
   const [selectedPlayer, setSelectedPlayer] = useState(null);
-  const [notifications, setNotifications] = useState(3);
-  const [loading, setLoading] = useState(false);
+  const [notifications] = useState(3);
 
   // Mock Data - Later replaceable with real API calls
   const mockData = {
@@ -69,12 +68,6 @@ const CoachDashboard = () => {
       { date: "2025-07-19", type: "Final Training", focus: "Team Shape", duration: "45 min" }
     ],
 
-    liveMatchData: {
-      isMatchDay: false,
-      currentMatch: null,
-      liveStats: null
-    },
-
     newsUpdates: [
       { title: "Key midfielder injury update", time: "2 hours ago", type: "injury" },
       { title: "Opponent tactical change spotted", time: "5 hours ago", type: "tactical" },
@@ -104,14 +97,14 @@ const CoachDashboard = () => {
 
   // Navigation items
   const navigationItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home, color: 'blue' },
-    { id: 'analysis', label: 'Analysis', icon: Brain, color: 'purple' },
-    { id: 'team', label: 'Squad', icon: Users, color: 'green' },
-    { id: 'training', label: 'Training', icon: Calendar, color: 'orange' },
-    { id: 'match', label: 'Live Match', icon: PlayCircle, color: 'red' },
-    { id: 'tactics', label: 'Tactics', icon: Target, color: 'yellow' },
-    { id: 'analytics', label: 'Analytics', icon: BarChart3, color: 'cyan' },
-    { id: 'reports', label: 'Reports', icon: FileText, color: 'indigo' }
+    { id: 'dashboard', label: 'Dashboard', icon: Home },
+    { id: 'analysis', label: 'Analysis', icon: Brain },
+    { id: 'team', label: 'Squad', icon: Users },
+    { id: 'training', label: 'Training', icon: Calendar },
+    { id: 'match', label: 'Live Match', icon: PlayCircle },
+    { id: 'tactics', label: 'Tactics', icon: Target },
+    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
+    { id: 'reports', label: 'Reports', icon: FileText }
   ];
 
   // Main Dashboard View
@@ -453,19 +446,6 @@ const CoachDashboard = () => {
   // Analysis View
   const AnalysisView = () => {
     const [opponentInput, setOpponentInput] = useState('');
-    const [analysisLoading, setAnalysisLoading] = useState(false);
-
-    const handleAnalysis = async () => {
-      if (!opponentInput.trim()) return;
-      
-      setAnalysisLoading(true);
-      // Simulate API call
-      setTimeout(() => {
-        setAnalysisLoading(false);
-        // Here you would integrate with your existing TAHLEEL.ai analysis API
-        console.log('Analyzing:', opponentInput);
-      }, 3000);
-    };
 
     return (
       <div className="space-y-6">
@@ -487,24 +467,10 @@ const CoachDashboard = () => {
               onChange={(e) => setOpponentInput(e.target.value)}
               placeholder="Enter opponent team name..."
               className="flex-1 px-4 py-3 bg-gray-800 border border-yellow-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
-              onKeyPress={(e) => e.key === 'Enter' && handleAnalysis()}
             />
-            <button 
-              onClick={handleAnalysis}
-              disabled={analysisLoading}
-              className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold py-3 px-8 rounded-lg hover:from-yellow-500 hover:to-yellow-600 transition-all disabled:opacity-50 flex items-center"
-            >
-              {analysisLoading ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black mr-2"></div>
-                  Analyzing...
-                </>
-              ) : (
-                <>
-                  <Search className="w-4 h-4 mr-2" />
-                  Analyze
-                </>
-              )}
+            <button className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold py-3 px-8 rounded-lg hover:from-yellow-500 hover:to-yellow-600 transition-all flex items-center">
+              <Search className="w-4 h-4 mr-2" />
+              Analyze
             </button>
           </div>
         </div>
@@ -619,14 +585,6 @@ const CoachDashboard = () => {
                 <p className="text-white font-semibold">{session.date}</p>
                 <p className="text-yellow-400 text-sm">{session.duration}</p>
               </div>
-              <div className="flex items-center space-x-2">
-                <button className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors text-sm">
-                  Edit
-                </button>
-                <button className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition-colors text-sm">
-                  Start
-                </button>
-              </div>
             </div>
           ))}
         </div>
@@ -682,488 +640,6 @@ const CoachDashboard = () => {
     </div>
   );
 
-  // Live Match View
-  const LiveMatchView = () => (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-white">Live Match Center</h2>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-green-400 font-semibold">LIVE</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Match Header */}
-      <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-4">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center text-white font-bold text-lg mb-2">
-                OT
-              </div>
-              <p className="text-white font-semibold">Our Team</p>
-            </div>
-            <div className="text-center px-8">
-              <div className="text-4xl font-bold text-white mb-2">2 - 1</div>
-              <div className="text-yellow-400 font-semibold">67'</div>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-red-600 to-red-700 rounded-full flex items-center justify-center text-white font-bold text-lg mb-2">
-                AN
-              </div>
-              <p className="text-white font-semibold">Al Nassr</p>
-            </div>
-          </div>
-          <div className="text-right">
-            <p className="text-blue-300 text-sm">Saudi Pro League</p>
-            <p className="text-gray-400 text-sm">King Fahd Stadium</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Live Actions Grid */}
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Tactical Adjustments */}
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <h3 className="text-lg font-bold text-white mb-4">Quick Adjustments</h3>
-          <div className="space-y-3">
-            <button className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white p-3 rounded-lg hover:from-green-700 hover:to-green-800 transition-all text-sm">
-              Switch to 4-4-2
-            </button>
-            <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all text-sm">
-              High Press Mode
-            </button>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white p-3 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all text-sm">
-              Counter Attack
-            </button>
-            <button className="w-full bg-gradient-to-r from-orange-600 to-orange-700 text-white p-3 rounded-lg hover:from-orange-700 hover:to-orange-800 transition-all text-sm">
-              Defensive Shape
-            </button>
-          </div>
-        </div>
-
-        {/* Substitutions */}
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <h3 className="text-lg font-bold text-white mb-4">Substitutions (2/5)</h3>
-          <div className="space-y-3">
-            {[
-              { out: "Salem Al-Dawsari", in: "Fresh Player 1", minute: "45'" },
-              { out: "Fahad Al-Muwallad", in: "Fresh Player 2", minute: "62'" }
-            ].map((sub, idx) => (
-              <div key={idx} className="p-3 bg-gray-800/50 rounded-lg">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-red-400">OUT: {sub.out}</span>
-                  <span className="text-yellow-400">{sub.minute}</span>
-                </div>
-                <div className="text-green-400 text-sm">IN: {sub.in}</div>
-              </div>
-            ))}
-            <button className="w-full bg-yellow-400 text-black py-2 px-4 rounded-lg font-semibold hover:bg-yellow-500 transition-colors">
-              Plan Substitution
-            </button>
-          </div>
-        </div>
-
-        {/* Live Stats */}
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <h3 className="text-lg font-bold text-white mb-4">Live Statistics</h3>
-          <div className="space-y-3">
-            {[
-              { stat: "Possession", our: "58%", opp: "42%" },
-              { stat: "Shots", our: "7", opp: "4" },
-              { stat: "Shots on Target", our: "4", opp: "2" },
-              { stat: "Corners", our: "3", opp: "1" },
-              { stat: "Fouls", our: "8", opp: "12" }
-            ].map((stat, idx) => (
-              <div key={idx} className="flex items-center justify-between text-sm">
-                <span className="text-blue-400">{stat.our}</span>
-                <span className="text-white font-medium">{stat.stat}</span>
-                <span className="text-red-400">{stat.opp}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Match Timeline */}
-      <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-        <h3 className="text-lg font-bold text-white mb-4">Match Timeline</h3>
-        <div className="space-y-3">
-          {[
-            { minute: "67'", event: "Our Team pressing high, creating chances", type: "tactical" },
-            { minute: "62'", event: "SUBSTITUTION: Fresh Player 2 IN", type: "sub" },
-            { minute: "58'", event: "GOAL! Our Team 2-1", type: "goal" },
-            { minute: "45'", event: "SUBSTITUTION: Fresh Player 1 IN", type: "sub" },
-            { minute: "34'", event: "GOAL! Al Nassr 1-1", type: "goal_against" },
-            { minute: "23'", event: "GOAL! Our Team 1-0", type: "goal" }
-          ].map((event, idx) => (
-            <div key={idx} className="flex items-center space-x-4 p-3 bg-gray-800/50 rounded-lg">
-              <div className={`w-2 h-2 rounded-full ${
-                event.type === 'goal' ? 'bg-green-400' : 
-                event.type === 'goal_against' ? 'bg-red-400' :
-                event.type === 'sub' ? 'bg-yellow-400' : 'bg-blue-400'
-              }`}></div>
-              <span className="text-yellow-400 font-semibold text-sm w-12">{event.minute}</span>
-              <span className="text-white text-sm flex-1">{event.event}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-  // Tactics View
-  const TacticsView = () => (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-white">Tactical Board</h2>
-        <div className="flex items-center space-x-4">
-          <button className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
-            Load Formation
-          </button>
-          <button className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500 transition-colors">
-            Save Formation
-          </button>
-        </div>
-      </div>
-
-      {/* Formation Builder */}
-      <div className="grid lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <h3 className="text-lg font-bold text-white mb-4">Formation: 4-3-3</h3>
-          <div className="relative bg-green-900/20 rounded-lg aspect-[3/2] border-2 border-green-400/30">
-            {/* Football Pitch Background */}
-            <div className="absolute inset-0 flex flex-col">
-              {/* Goal areas and center circle would go here */}
-              <div className="flex-1 border-b border-green-400/30 flex items-center justify-center">
-                <div className="text-white text-xs">Tactical Board</div>
-              </div>
-            </div>
-            
-            {/* Player positions - simplified representation */}
-            <div className="absolute inset-0 p-4">
-              {/* GK */}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-black text-xs font-bold">
-                GK
-              </div>
-              
-              {/* Defense */}
-              <div className="absolute bottom-16 left-1/4 w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center text-white text-xs">
-                LB
-              </div>
-              <div className="absolute bottom-16 left-2/5 w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center text-white text-xs">
-                CB
-              </div>
-              <div className="absolute bottom-16 right-2/5 w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center text-white text-xs">
-                CB
-              </div>
-              <div className="absolute bottom-16 right-1/4 w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center text-white text-xs">
-                RB
-              </div>
-              
-              {/* Midfield */}
-              <div className="absolute bottom-32 left-1/3 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-white text-xs">
-                CM
-              </div>
-              <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-white text-xs">
-                CM
-              </div>
-              <div className="absolute bottom-32 right-1/3 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-white text-xs">
-                CM
-              </div>
-              
-              {/* Attack */}
-              <div className="absolute bottom-48 left-1/4 w-6 h-6 bg-red-400 rounded-full flex items-center justify-center text-white text-xs">
-                LW
-              </div>
-              <div className="absolute bottom-48 left-1/2 transform -translate-x-1/2 w-6 h-6 bg-red-400 rounded-full flex items-center justify-center text-white text-xs">
-                ST
-              </div>
-              <div className="absolute bottom-48 right-1/4 w-6 h-6 bg-red-400 rounded-full flex items-center justify-center text-white text-xs">
-                RW
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          {/* Formation Presets */}
-          <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-            <h3 className="text-lg font-bold text-white mb-4">Formation Presets</h3>
-            <div className="space-y-2">
-              {['4-3-3', '4-4-2', '3-5-2', '4-2-3-1', '5-3-2'].map((formation) => (
-                <button 
-                  key={formation}
-                  className="w-full text-left p-3 bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-colors text-white"
-                >
-                  {formation}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Tactical Instructions */}
-          <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-            <h3 className="text-lg font-bold text-white mb-4">Instructions</h3>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-blue-300 text-sm">Attacking Style</span>
-                <select className="bg-gray-800 text-white text-sm rounded px-2 py-1">
-                  <option>Possession</option>
-                  <option>Counter Attack</option>
-                  <option>Direct</option>
-                </select>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-blue-300 text-sm">Defensive Line</span>
-                <select className="bg-gray-800 text-white text-sm rounded px-2 py-1">
-                  <option>High</option>
-                  <option>Medium</option>
-                  <option>Deep</option>
-                </select>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-blue-300 text-sm">Pressing</span>
-                <select className="bg-gray-800 text-white text-sm rounded px-2 py-1">
-                  <option>High Press</option>
-                  <option>Medium</option>
-                  <option>Low Block</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Tactical Scenarios */}
-      <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-        <h3 className="text-lg font-bold text-white mb-4">Tactical Scenarios</h3>
-        <div className="grid md:grid-cols-3 gap-4">
-          {[
-            { scenario: "Leading 1-0", formation: "5-4-1", focus: "Defensive stability" },
-            { scenario: "Trailing 0-1", formation: "3-4-3", focus: "Attacking overload" },
-            { scenario: "Level at 1-1", formation: "4-3-3", focus: "Balanced approach" }
-          ].map((tactic, idx) => (
-            <div key={idx} className="p-4 bg-gray-800/50 rounded-lg">
-              <h4 className="text-white font-semibold mb-2">{tactic.scenario}</h4>
-              <p className="text-yellow-400 text-sm mb-1">Formation: {tactic.formation}</p>
-              <p className="text-blue-300 text-sm">{tactic.focus}</p>
-              <button className="mt-3 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors text-sm">
-                Apply
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-  // Analytics View
-  const AnalyticsView = () => (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-white">Performance Analytics</h2>
-        <div className="flex items-center space-x-4">
-          <select className="bg-gray-800 text-white px-4 py-2 rounded-lg">
-            <option>Last 5 matches</option>
-            <option>Last 10 matches</option>
-            <option>Season</option>
-          </select>
-          <button className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500 transition-colors">
-            Export Report
-          </button>
-        </div>
-      </div>
-
-      {/* Performance Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <div className="flex items-center justify-between mb-4">
-            <Trophy className="text-yellow-400 w-8 h-8" />
-            <span className="text-green-400 text-sm">+15%</span>
-          </div>
-          <h3 className="text-2xl font-bold text-white">{mockData.teamStats.wins}</h3>
-          <p className="text-blue-300 text-sm">Wins</p>
-        </div>
-        
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <div className="flex items-center justify-between mb-4">
-            <Target className="text-blue-400 w-8 h-8" />
-            <span className="text-green-400 text-sm">+8%</span>
-          </div>
-          <h3 className="text-2xl font-bold text-white">{mockData.teamStats.goalsFor}</h3>
-          <p className="text-blue-300 text-sm">Goals Scored</p>
-        </div>
-        
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <div className="flex items-center justify-between mb-4">
-            <Shield className="text-green-400 w-8 h-8" />
-            <span className="text-green-400 text-sm">-12%</span>
-          </div>
-          <h3 className="text-2xl font-bold text-white">{mockData.teamStats.goalsAgainst}</h3>
-          <p className="text-blue-300 text-sm">Goals Conceded</p>
-        </div>
-        
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <div className="flex items-center justify-between mb-4">
-            <Medal className="text-purple-400 w-8 h-8" />
-            <span className="text-green-400 text-sm">+25%</span>
-          </div>
-          <h3 className="text-2xl font-bold text-white">{mockData.teamStats.cleanSheets}</h3>
-          <p className="text-blue-300 text-sm">Clean Sheets</p>
-        </div>
-      </div>
-
-      {/* Charts and Detailed Analytics */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <h3 className="text-lg font-bold text-white mb-4">Recent Form</h3>
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            {mockData.teamStats.currentForm.map((result, idx) => (
-              <div 
-                key={idx}
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold ${
-                  result === 'W' ? 'bg-green-500' : 
-                  result === 'D' ? 'bg-yellow-500' : 'bg-red-500'
-                }`}
-              >
-                {result}
-              </div>
-            ))}
-          </div>
-          <p className="text-center text-blue-300 text-sm">Last 5 matches: 4W, 1D, 0L</p>
-        </div>
-
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <h3 className="text-lg font-bold text-white mb-4">Squad Performance</h3>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-blue-300 text-sm">Average Fitness</span>
-              <span className="text-white font-semibold">92%</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-blue-300 text-sm">Average Form</span>
-              <span className="text-white font-semibold">8.1</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-blue-300 text-sm">Availability Rate</span>
-              <span className="text-white font-semibold">82%</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Detailed Statistics */}
-      <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-        <h3 className="text-lg font-bold text-white mb-4">Detailed Statistics</h3>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div>
-            <h4 className="text-white font-semibold mb-3">Attacking Stats</h4>
-            <div className="space-y-2">
-              {[
-                { stat: "Goals per Game", value: "2.0" },
-                { stat: "Shots per Game", value: "14.2" },
-                { stat: "Possession %", value: "58%" },
-                { stat: "Pass Accuracy", value: "84%" }
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-center justify-between text-sm">
-                  <span className="text-blue-300">{item.stat}</span>
-                  <span className="text-white font-semibold">{item.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h4 className="text-white font-semibold mb-3">Defensive Stats</h4>
-            <div className="space-y-2">
-              {[
-                { stat: "Goals Conceded/Game", value: "0.7" },
-                { stat: "Tackles per Game", value: "18.5" },
-                { stat: "Interceptions", value: "12.3" },
-                { stat: "Clean Sheet %", value: "50%" }
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-center justify-between text-sm">
-                  <span className="text-blue-300">{item.stat}</span>
-                  <span className="text-white font-semibold">{item.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  // Reports View
-  const ReportsView = () => (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-white">Reports & Documentation</h2>
-        <div className="flex items-center space-x-4">
-          <button className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors flex items-center">
-            <Filter className="w-4 h-4 mr-2" />
-            Filter
-          </button>
-          <button className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500 transition-colors flex items-center">
-            <Plus className="w-4 h-4 mr-2" />
-            New Report
-          </button>
-        </div>
-      </div>
-
-      {/* Report Categories */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[
-          { title: "Match Reports", icon: FileText, color: "blue", count: 12 },
-          { title: "Player Analysis", icon: Users, color: "green", count: 8 },
-          { title: "Training Reports", icon: Calendar, color: "purple", count: 15 },
-          { title: "Opposition Scouting", icon: Eye, color: "orange", count: 6 }
-        ].map((category, idx) => (
-          <div key={idx} className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30 hover:border-yellow-400/50 transition-all cursor-pointer">
-            <category.icon className={`text-${category.color}-400 w-8 h-8 mb-3`} />
-            <h3 className="text-white font-semibold mb-2">{category.title}</h3>
-            <p className="text-blue-300 text-sm">{category.count} reports</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Recent Reports */}
-      <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-        <h3 className="text-lg font-bold text-white mb-4">Recent Reports</h3>
-        <div className="space-y-3">
-          {[
-            { title: "Al Nassr vs Our Team - Match Analysis", date: "2025-07-15", type: "Match Report", status: "completed" },
-            { title: "Salem Al-Dawsari - Performance Review", date: "2025-07-14", type: "Player Analysis", status: "completed" },
-            { title: "Tactical Training Session #12", date: "2025-07-13", type: "Training Report", status: "draft" },
-            { title: "Al Hilal Opposition Scouting", date: "2025-07-12", type: "Scouting", status: "completed" }
-          ].map((report, idx) => (
-            <div key={idx} className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-colors">
-              <div className="flex items-center space-x-4">
-                <div className={`w-2 h-2 rounded-full ${
-                  report.status === 'completed' ? 'bg-green-400' : 'bg-yellow-400'
-                }`}></div>
-                <div>
-                  <h4 className="text-white font-semibold text-sm">{report.title}</h4>
-                  <p className="text-blue-300 text-xs">{report.type} • {report.date}</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-2">
-                <button className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors text-sm">
-                  View
-                </button>
-                <button className="bg-gray-600 text-white px-3 py-1 rounded hover:bg-gray-700 transition-colors text-sm">
-                  <Download className="w-3 h-3" />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
   // Render current view based on activeModule
   const renderCurrentView = () => {
     switch (activeModule) {
@@ -1171,10 +647,6 @@ const CoachDashboard = () => {
       case 'team': return <TeamView />;
       case 'analysis': return <AnalysisView />;
       case 'training': return <TrainingView />;
-      case 'match': return <LiveMatchView />;
-      case 'tactics': return <TacticsView />;
-      case 'analytics': return <AnalyticsView />;
-      case 'reports': return <ReportsView />;
       default: return <DashboardView />;
     }
   };
