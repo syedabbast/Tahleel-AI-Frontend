@@ -77,21 +77,21 @@ const CoachDashboard = () => {
 
   const getAvailabilityColor = (availability) => {
     switch (availability) {
-      case 'available': return 'text-green-400';
-      case 'minor_injury': return 'text-yellow-400';
-      case 'suspended': return 'text-red-400';
-      case 'major_injury': return 'text-red-600';
-      default: return 'text-gray-400';
+      case 'available': return 'text-green-600';
+      case 'minor_injury': return 'text-amber-600';
+      case 'suspended': return 'text-red-600';
+      case 'major_injury': return 'text-red-700';
+      default: return 'text-gray-500';
     }
   };
 
   const getAvailabilityBg = (availability) => {
     switch (availability) {
-      case 'available': return 'bg-green-500/20';
-      case 'minor_injury': return 'bg-yellow-500/20';
-      case 'suspended': return 'bg-red-500/20';
-      case 'major_injury': return 'bg-red-600/20';
-      default: return 'bg-gray-500/20';
+      case 'available': return 'bg-green-50 border-green-200';
+      case 'minor_injury': return 'bg-amber-50 border-amber-200';
+      case 'suspended': return 'bg-red-50 border-red-200';
+      case 'major_injury': return 'bg-red-100 border-red-300';
+      default: return 'bg-gray-50 border-gray-200';
     }
   };
 
@@ -112,49 +112,49 @@ const CoachDashboard = () => {
     <div className="space-y-6">
       {/* Key Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-300 text-sm">Next Match</p>
-              <h3 className="text-xl font-bold text-white">{mockData.upcomingMatch.opponent}</h3>
-              <p className="text-yellow-400 text-sm">{mockData.upcomingMatch.date}</p>
+              <p className="text-gray-600 text-sm font-medium">Next Match</p>
+              <h3 className="text-xl font-semibold text-gray-900">{mockData.upcomingMatch.opponent}</h3>
+              <p className="text-blue-600 text-sm font-medium">{mockData.upcomingMatch.date}</p>
             </div>
-            <Trophy className="text-yellow-400 w-8 h-8" />
+            <Trophy className="text-blue-600 w-8 h-8" />
           </div>
         </div>
 
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-300 text-sm">Squad Fitness</p>
-              <h3 className="text-xl font-bold text-white">92%</h3>
-              <p className="text-green-400 text-sm">+3% from last week</p>
+              <p className="text-gray-600 text-sm font-medium">Squad Fitness</p>
+              <h3 className="text-xl font-semibold text-gray-900">92%</h3>
+              <p className="text-green-600 text-sm font-medium">+3% from last week</p>
             </div>
-            <Activity className="text-green-400 w-8 h-8" />
+            <Activity className="text-green-600 w-8 h-8" />
           </div>
         </div>
 
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-300 text-sm">Available Players</p>
-              <h3 className="text-xl font-bold text-white">
+              <p className="text-gray-600 text-sm font-medium">Available Players</p>
+              <h3 className="text-xl font-semibold text-gray-900">
                 {mockData.squad.filter(p => p.availability === 'available').length}/11
               </h3>
-              <p className="text-yellow-400 text-sm">2 minor injuries</p>
+              <p className="text-amber-600 text-sm font-medium">2 minor injuries</p>
             </div>
-            <Users className="text-blue-400 w-8 h-8" />
+            <Users className="text-blue-600 w-8 h-8" />
           </div>
         </div>
 
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-300 text-sm">Recent Analysis</p>
-              <h3 className="text-xl font-bold text-white">89%</h3>
-              <p className="text-green-400 text-sm">Confidence Score</p>
+              <p className="text-gray-600 text-sm font-medium">Recent Analysis</p>
+              <h3 className="text-xl font-semibold text-gray-900">89%</h3>
+              <p className="text-green-600 text-sm font-medium">Confidence Score</p>
             </div>
-            <Brain className="text-purple-400 w-8 h-8" />
+            <Brain className="text-purple-600 w-8 h-8" />
           </div>
         </div>
       </div>
@@ -162,56 +162,56 @@ const CoachDashboard = () => {
       {/* Main Content Grid */}
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Upcoming Match Details */}
-        <div className="lg:col-span-2 bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
+        <div className="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-white">Next Match Analysis</h3>
+            <h3 className="text-xl font-semibold text-gray-900">Next Match Analysis</h3>
             <button 
               onClick={() => setActiveModule('analysis')}
-              className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500 transition-colors"
+              className="bg-blue-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-blue-700 transition-colors"
             >
               View Full Analysis
             </button>
           </div>
           
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center text-black font-bold">
+                <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-semibold">
                   AN
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold text-white">{mockData.upcomingMatch.opponent}</h4>
-                  <p className="text-blue-300">{mockData.upcomingMatch.competition}</p>
+                  <h4 className="text-lg font-semibold text-gray-900">{mockData.upcomingMatch.opponent}</h4>
+                  <p className="text-gray-600">{mockData.upcomingMatch.competition}</p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-white font-semibold">{mockData.upcomingMatch.date}</p>
-                <p className="text-blue-300">{mockData.upcomingMatch.time}</p>
+                <p className="text-gray-900 font-semibold">{mockData.upcomingMatch.date}</p>
+                <p className="text-gray-600">{mockData.upcomingMatch.time}</p>
               </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <h5 className="text-white font-semibold mb-2">Key Weaknesses</h5>
+                <h5 className="text-gray-900 font-semibold mb-2">Key Weaknesses</h5>
                 <div className="space-y-2">
                   {mockData.tacticalInsights.slice(0, 2).map((insight, idx) => (
                     <div key={idx} className="flex items-start">
-                      <Target className="text-yellow-400 w-4 h-4 mt-0.5 mr-2 flex-shrink-0" />
-                      <p className="text-blue-300 text-sm">{insight}</p>
+                      <Target className="text-blue-600 w-4 h-4 mt-0.5 mr-2 flex-shrink-0" />
+                      <p className="text-gray-600 text-sm">{insight}</p>
                     </div>
                   ))}
                 </div>
               </div>
               <div>
-                <h5 className="text-white font-semibold mb-2">Recommended Strategy</h5>
+                <h5 className="text-gray-900 font-semibold mb-2">Recommended Strategy</h5>
                 <div className="space-y-2">
                   <div className="flex items-center">
-                    <Flag className="text-green-400 w-4 h-4 mr-2" />
-                    <p className="text-blue-300 text-sm">4-3-3 High Press</p>
+                    <Flag className="text-green-600 w-4 h-4 mr-2" />
+                    <p className="text-gray-600 text-sm">4-3-3 High Press</p>
                   </div>
                   <div className="flex items-center">
-                    <Zap className="text-yellow-400 w-4 h-4 mr-2" />
-                    <p className="text-blue-300 text-sm">Quick transitions</p>
+                    <Zap className="text-amber-600 w-4 h-4 mr-2" />
+                    <p className="text-gray-600 text-sm">Quick transitions</p>
                   </div>
                 </div>
               </div>
@@ -221,26 +221,26 @@ const CoachDashboard = () => {
 
         {/* Quick Actions & News */}
         <div className="space-y-6">
-          <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-            <h3 className="text-lg font-bold text-white mb-4">Quick Actions</h3>
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
             <div className="space-y-3">
               <button 
                 onClick={() => setActiveModule('analysis')}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all flex items-center"
+                className="w-full bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700 transition-all flex items-center font-medium"
               >
                 <Search className="w-4 h-4 mr-2" />
                 New Analysis
               </button>
               <button 
                 onClick={() => setActiveModule('team')}
-                className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white p-3 rounded-lg hover:from-green-700 hover:to-green-800 transition-all flex items-center"
+                className="w-full bg-green-600 text-white p-3 rounded-xl hover:bg-green-700 transition-all flex items-center font-medium"
               >
                 <Users className="w-4 h-4 mr-2" />
                 Team Selection
               </button>
               <button 
                 onClick={() => setActiveModule('training')}
-                className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white p-3 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all flex items-center"
+                className="w-full bg-purple-600 text-white p-3 rounded-xl hover:bg-purple-700 transition-all flex items-center font-medium"
               >
                 <Calendar className="w-4 h-4 mr-2" />
                 Plan Training
@@ -248,18 +248,18 @@ const CoachDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-            <h3 className="text-lg font-bold text-white mb-4">Latest Updates</h3>
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Latest Updates</h3>
             <div className="space-y-3">
               {mockData.newsUpdates.map((update, idx) => (
-                <div key={idx} className="flex items-start space-x-3 p-3 bg-gray-800/50 rounded-lg">
+                <div key={idx} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-xl">
                   <div className={`w-2 h-2 rounded-full mt-2 ${
-                    update.type === 'injury' ? 'bg-red-400' : 
-                    update.type === 'tactical' ? 'bg-yellow-400' : 'bg-blue-400'
+                    update.type === 'injury' ? 'bg-red-500' : 
+                    update.type === 'tactical' ? 'bg-amber-500' : 'bg-blue-500'
                   }`}></div>
                   <div className="flex-1">
-                    <p className="text-white text-sm font-medium">{update.title}</p>
-                    <p className="text-gray-400 text-xs">{update.time}</p>
+                    <p className="text-gray-900 text-sm font-medium">{update.title}</p>
+                    <p className="text-gray-500 text-xs">{update.time}</p>
                   </div>
                 </div>
               ))}
@@ -269,18 +269,18 @@ const CoachDashboard = () => {
       </div>
 
       {/* Training Schedule */}
-      <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-        <h3 className="text-lg font-bold text-white mb-4">This Week's Training</h3>
+      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">This Week's Training</h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {mockData.trainingSchedule.map((session, idx) => (
-            <div key={idx} className="p-4 bg-gray-800/50 rounded-lg">
+            <div key={idx} className="p-4 bg-gray-50 rounded-xl border border-gray-100">
               <div className="flex items-center justify-between mb-2">
-                <Calendar className="text-purple-400 w-5 h-5" />
-                <span className="text-yellow-400 text-sm">{session.duration}</span>
+                <Calendar className="text-purple-600 w-5 h-5" />
+                <span className="text-blue-600 text-sm font-medium">{session.duration}</span>
               </div>
-              <h4 className="text-white font-semibold text-sm mb-1">{session.type}</h4>
-              <p className="text-blue-300 text-xs mb-2">{session.focus}</p>
-              <p className="text-gray-400 text-xs">{session.date.split('-')[2]}/07</p>
+              <h4 className="text-gray-900 font-semibold text-sm mb-1">{session.type}</h4>
+              <p className="text-gray-600 text-xs mb-2">{session.focus}</p>
+              <p className="text-gray-500 text-xs">{session.date.split('-')[2]}/07</p>
             </div>
           ))}
         </div>
@@ -292,13 +292,13 @@ const CoachDashboard = () => {
   const TeamView = () => (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-white">Squad Management</h2>
+        <h2 className="text-2xl font-semibold text-gray-900">Squad Management</h2>
         <div className="flex items-center space-x-4">
-          <button className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors flex items-center">
+          <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-xl hover:bg-gray-200 transition-colors flex items-center font-medium">
             <Filter className="w-4 h-4 mr-2" />
             Filter
           </button>
-          <button className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500 transition-colors flex items-center">
+          <button className="bg-blue-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center">
             <Plus className="w-4 h-4 mr-2" />
             Add Player
           </button>
@@ -307,38 +307,38 @@ const CoachDashboard = () => {
 
       {/* Squad Overview Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30">
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <div className="text-center">
-            <Users className="text-blue-400 w-8 h-8 mx-auto mb-2" />
-            <h3 className="text-2xl font-bold text-white">{mockData.squad.length}</h3>
-            <p className="text-blue-300 text-sm">Total Players</p>
+            <Users className="text-blue-600 w-8 h-8 mx-auto mb-2" />
+            <h3 className="text-2xl font-semibold text-gray-900">{mockData.squad.length}</h3>
+            <p className="text-gray-600 text-sm">Total Players</p>
           </div>
         </div>
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30">
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <div className="text-center">
-            <Heart className="text-green-400 w-8 h-8 mx-auto mb-2" />
-            <h3 className="text-2xl font-bold text-white">
+            <Heart className="text-green-600 w-8 h-8 mx-auto mb-2" />
+            <h3 className="text-2xl font-semibold text-gray-900">
               {mockData.squad.filter(p => p.availability === 'available').length}
             </h3>
-            <p className="text-green-400 text-sm">Available</p>
+            <p className="text-green-600 text-sm">Available</p>
           </div>
         </div>
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30">
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <div className="text-center">
-            <AlertCircle className="text-yellow-400 w-8 h-8 mx-auto mb-2" />
-            <h3 className="text-2xl font-bold text-white">
+            <AlertCircle className="text-amber-600 w-8 h-8 mx-auto mb-2" />
+            <h3 className="text-2xl font-semibold text-gray-900">
               {mockData.squad.filter(p => p.availability === 'minor_injury').length}
             </h3>
-            <p className="text-yellow-400 text-sm">Minor Injuries</p>
+            <p className="text-amber-600 text-sm">Minor Injuries</p>
           </div>
         </div>
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30">
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <div className="text-center">
-            <Shield className="text-red-400 w-8 h-8 mx-auto mb-2" />
-            <h3 className="text-2xl font-bold text-white">
+            <Shield className="text-red-600 w-8 h-8 mx-auto mb-2" />
+            <h3 className="text-2xl font-semibold text-gray-900">
               {mockData.squad.filter(p => p.availability === 'suspended').length}
             </h3>
-            <p className="text-red-400 text-sm">Suspended</p>
+            <p className="text-red-600 text-sm">Suspended</p>
           </div>
         </div>
       </div>
@@ -348,35 +348,35 @@ const CoachDashboard = () => {
         {mockData.squad.map((player) => (
           <div 
             key={player.id} 
-            className={`bg-gray-900/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30 hover:border-yellow-400/50 transition-all cursor-pointer ${getAvailabilityBg(player.availability)}`}
+            className={`bg-white rounded-2xl p-4 shadow-sm border hover:shadow-md transition-all cursor-pointer ${getAvailabilityBg(player.availability)}`}
             onClick={() => setSelectedPlayer(player)}
           >
             <div className="flex items-center justify-between mb-3">
               <div className="text-2xl">{player.photo}</div>
-              <div className={`px-2 py-1 rounded text-xs font-semibold ${getAvailabilityColor(player.availability)}`}>
+              <div className={`px-2 py-1 rounded-lg text-xs font-semibold ${getAvailabilityColor(player.availability)} bg-white`}>
                 {player.position}
               </div>
             </div>
             
-            <h3 className="text-white font-semibold text-sm mb-2">{player.name}</h3>
+            <h3 className="text-gray-900 font-semibold text-sm mb-2">{player.name}</h3>
             
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-blue-300 text-xs">Fitness</span>
-                <span className="text-white text-xs font-semibold">{player.fitness}%</span>
+                <span className="text-gray-600 text-xs">Fitness</span>
+                <span className="text-gray-900 text-xs font-semibold">{player.fitness}%</span>
               </div>
-              <div className="w-full bg-gray-700 rounded-full h-1.5">
+              <div className="w-full bg-gray-200 rounded-full h-1.5">
                 <div 
-                  className="bg-green-400 h-1.5 rounded-full transition-all duration-300"
+                  className="bg-green-500 h-1.5 rounded-full transition-all duration-300"
                   style={{ width: `${player.fitness}%` }}
                 ></div>
               </div>
               
               <div className="flex items-center justify-between mt-2">
-                <span className="text-blue-300 text-xs">Form</span>
+                <span className="text-gray-600 text-xs">Form</span>
                 <div className="flex items-center">
-                  <Star className="text-yellow-400 w-3 h-3 mr-1" />
-                  <span className="text-white text-xs font-semibold">{player.form}</span>
+                  <Star className="text-amber-500 w-3 h-3 mr-1" />
+                  <span className="text-gray-900 text-xs font-semibold">{player.form}</span>
                 </div>
               </div>
               
@@ -391,12 +391,12 @@ const CoachDashboard = () => {
       {/* Player Detail Modal */}
       {selectedPlayer && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-900 rounded-xl p-6 border border-yellow-500/30 max-w-md w-full">
+          <div className="bg-white rounded-2xl p-6 shadow-xl max-w-md w-full">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-white">{selectedPlayer.name}</h3>
+              <h3 className="text-xl font-semibold text-gray-900">{selectedPlayer.name}</h3>
               <button 
                 onClick={() => setSelectedPlayer(null)}
-                className="text-gray-400 hover:text-white"
+                className="text-gray-400 hover:text-gray-600"
               >
                 ✕
               </button>
@@ -411,28 +411,28 @@ const CoachDashboard = () => {
               </div>
               
               <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-3 bg-gray-800/50 rounded-lg">
-                  <p className="text-blue-300 text-sm">Fitness</p>
-                  <p className="text-white text-xl font-bold">{selectedPlayer.fitness}%</p>
+                <div className="text-center p-3 bg-gray-50 rounded-xl">
+                  <p className="text-gray-600 text-sm">Fitness</p>
+                  <p className="text-gray-900 text-xl font-semibold">{selectedPlayer.fitness}%</p>
                 </div>
-                <div className="text-center p-3 bg-gray-800/50 rounded-lg">
-                  <p className="text-blue-300 text-sm">Form Rating</p>
-                  <p className="text-white text-xl font-bold">{selectedPlayer.form}</p>
+                <div className="text-center p-3 bg-gray-50 rounded-xl">
+                  <p className="text-gray-600 text-sm">Form Rating</p>
+                  <p className="text-gray-900 text-xl font-semibold">{selectedPlayer.form}</p>
                 </div>
               </div>
               
               <div className="text-center">
-                <p className="text-blue-300 text-sm mb-1">Status</p>
+                <p className="text-gray-600 text-sm mb-1">Status</p>
                 <p className={`font-semibold ${getAvailabilityColor(selectedPlayer.availability)}`}>
                   {selectedPlayer.availability.replace('_', ' ').toUpperCase()}
                 </p>
               </div>
               
               <div className="flex space-x-2">
-                <button className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                <button className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition-colors font-medium">
                   View Stats
                 </button>
-                <button className="flex-1 bg-yellow-400 text-black py-2 px-4 rounded-lg hover:bg-yellow-500 transition-colors">
+                <button className="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-xl hover:bg-gray-200 transition-colors font-medium">
                   Edit Player
                 </button>
               </div>
@@ -450,25 +450,25 @@ const CoachDashboard = () => {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-white">Opponent Analysis</h2>
-          <button className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500 transition-colors flex items-center">
+          <h2 className="text-2xl font-semibold text-gray-900">Opponent Analysis</h2>
+          <button className="bg-blue-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center">
             <Plus className="w-4 h-4 mr-2" />
             New Analysis
           </button>
         </div>
 
         {/* Search and Create New Analysis */}
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <h3 className="text-lg font-bold text-white mb-4">Start New Analysis</h3>
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Start New Analysis</h3>
           <div className="flex space-x-4">
             <input
               type="text"
               value={opponentInput}
               onChange={(e) => setOpponentInput(e.target.value)}
               placeholder="Enter opponent team name..."
-              className="flex-1 px-4 py-3 bg-gray-800 border border-yellow-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+              className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-            <button className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold py-3 px-8 rounded-lg hover:from-yellow-500 hover:to-yellow-600 transition-all flex items-center">
+            <button className="bg-blue-600 text-white font-medium py-3 px-8 rounded-xl hover:bg-blue-700 transition-all flex items-center">
               <Search className="w-4 h-4 mr-2" />
               Analyze
             </button>
@@ -481,39 +481,39 @@ const CoachDashboard = () => {
             { title: "Tactical Analysis", icon: Brain, color: "purple", desc: "Formation and style analysis" },
             { title: "Player Analysis", icon: Users, color: "blue", desc: "Key players and weaknesses" },
             { title: "Set Pieces", icon: Flag, color: "green", desc: "Dead ball situations" },
-            { title: "Recent Form", icon: TrendingUp, color: "yellow", desc: "Latest performance trends" },
+            { title: "Recent Form", icon: TrendingUp, color: "amber", desc: "Latest performance trends" },
             { title: "Injury Reports", icon: Heart, color: "red", desc: "Player availability" },
             { title: "News Intelligence", icon: Bell, color: "orange", desc: "Latest team updates" }
           ].map((category, idx) => (
-            <div key={idx} className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30 hover:border-yellow-400/50 transition-all cursor-pointer">
-              <category.icon className={`text-${category.color}-400 w-8 h-8 mb-3`} />
-              <h3 className="text-white font-semibold mb-2">{category.title}</h3>
-              <p className="text-blue-300 text-sm">{category.desc}</p>
+            <div key={idx} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all cursor-pointer">
+              <category.icon className={`text-${category.color}-600 w-8 h-8 mb-3`} />
+              <h3 className="text-gray-900 font-semibold mb-2">{category.title}</h3>
+              <p className="text-gray-600 text-sm">{category.desc}</p>
             </div>
           ))}
         </div>
 
         {/* Recent Analyses */}
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <h3 className="text-lg font-bold text-white mb-4">Recent Analyses</h3>
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Analyses</h3>
           <div className="space-y-3">
             {mockData.recentAnalysis.map((analysis, idx) => (
-              <div key={idx} className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-colors">
+              <div key={idx} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
                 <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                  <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-semibold text-sm">
                     {analysis.opponent.substring(0, 2)}
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold">{analysis.opponent}</h4>
-                    <p className="text-blue-300 text-sm">{analysis.date}</p>
+                    <h4 className="text-gray-900 font-semibold">{analysis.opponent}</h4>
+                    <p className="text-gray-600 text-sm">{analysis.date}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
                   <div className="text-center">
-                    <p className="text-green-400 font-semibold">{analysis.confidence}%</p>
-                    <p className="text-gray-400 text-xs">Confidence</p>
+                    <p className="text-green-600 font-semibold">{analysis.confidence}%</p>
+                    <p className="text-gray-500 text-xs">Confidence</p>
                   </div>
-                  <button className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors">
+                  <button className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition-colors font-medium">
                     View
                   </button>
                 </div>
@@ -529,8 +529,8 @@ const CoachDashboard = () => {
   const TrainingView = () => (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-white">Training Management</h2>
-        <button className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500 transition-colors flex items-center">
+        <h2 className="text-2xl font-semibold text-gray-900">Training Management</h2>
+        <button className="bg-blue-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center">
           <Plus className="w-4 h-4 mr-2" />
           Plan Session
         </button>
@@ -538,52 +538,52 @@ const CoachDashboard = () => {
 
       {/* Training Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-4">
-            <Calendar className="text-purple-400 w-8 h-8" />
-            <span className="text-purple-400 text-sm">This Week</span>
+            <Calendar className="text-purple-600 w-8 h-8" />
+            <span className="text-purple-600 text-sm font-medium">This Week</span>
           </div>
-          <h3 className="text-2xl font-bold text-white">4</h3>
-          <p className="text-blue-300 text-sm">Training Sessions</p>
+          <h3 className="text-2xl font-semibold text-gray-900">4</h3>
+          <p className="text-gray-600 text-sm">Training Sessions</p>
         </div>
         
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-4">
-            <Timer className="text-green-400 w-8 h-8" />
-            <span className="text-green-400 text-sm">Total</span>
+            <Timer className="text-green-600 w-8 h-8" />
+            <span className="text-green-600 text-sm font-medium">Total</span>
           </div>
-          <h3 className="text-2xl font-bold text-white">5.5h</h3>
-          <p className="text-blue-300 text-sm">Training Time</p>
+          <h3 className="text-2xl font-semibold text-gray-900">5.5h</h3>
+          <p className="text-gray-600 text-sm">Training Time</p>
         </div>
         
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-4">
-            <Target className="text-yellow-400 w-8 h-8" />
-            <span className="text-yellow-400 text-sm">Focus</span>
+            <Target className="text-blue-600 w-8 h-8" />
+            <span className="text-blue-600 text-sm font-medium">Focus</span>
           </div>
-          <h3 className="text-lg font-bold text-white">Tactical</h3>
-          <p className="text-blue-300 text-sm">Primary Focus</p>
+          <h3 className="text-lg font-semibold text-gray-900">Tactical</h3>
+          <p className="text-gray-600 text-sm">Primary Focus</p>
         </div>
       </div>
 
       {/* This Week's Schedule */}
-      <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-        <h3 className="text-lg font-bold text-white mb-4">This Week's Schedule</h3>
+      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">This Week's Schedule</h3>
         <div className="grid gap-4">
           {mockData.trainingSchedule.map((session, idx) => (
-            <div key={idx} className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg">
+            <div key={idx} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center">
                   <Calendar className="text-white w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold">{session.type}</h4>
-                  <p className="text-blue-300 text-sm">{session.focus}</p>
+                  <h4 className="text-gray-900 font-semibold">{session.type}</h4>
+                  <p className="text-gray-600 text-sm">{session.focus}</p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-white font-semibold">{session.date}</p>
-                <p className="text-yellow-400 text-sm">{session.duration}</p>
+                <p className="text-gray-900 font-semibold">{session.date}</p>
+                <p className="text-blue-600 text-sm font-medium">{session.duration}</p>
               </div>
             </div>
           ))}
@@ -592,22 +592,22 @@ const CoachDashboard = () => {
 
       {/* Training Categories */}
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <h3 className="text-lg font-bold text-white mb-4">Training Categories</h3>
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Training Categories</h3>
           <div className="space-y-3">
             {[
               { name: "Tactical Training", icon: Brain, color: "purple", sessions: 8 },
               { name: "Physical Conditioning", icon: Activity, color: "green", sessions: 6 },
               { name: "Technical Skills", icon: Target, color: "blue", sessions: 4 },
-              { name: "Set Pieces", icon: Flag, color: "yellow", sessions: 3 }
+              { name: "Set Pieces", icon: Flag, color: "amber", sessions: 3 }
             ].map((category, idx) => (
-              <div key={idx} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-colors cursor-pointer">
+              <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
                 <div className="flex items-center">
-                  <category.icon className={`text-${category.color}-400 w-5 h-5 mr-3`} />
-                  <span className="text-white">{category.name}</span>
+                  <category.icon className={`text-${category.color}-600 w-5 h-5 mr-3`} />
+                  <span className="text-gray-900 font-medium">{category.name}</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <span className="text-gray-400 text-sm">{category.sessions} sessions</span>
+                  <span className="text-gray-500 text-sm">{category.sessions} sessions</span>
                   <ChevronRight className="text-gray-400 w-4 h-4" />
                 </div>
               </div>
@@ -615,22 +615,22 @@ const CoachDashboard = () => {
           </div>
         </div>
 
-        <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
-          <h3 className="text-lg font-bold text-white mb-4">Quick Actions</h3>
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
           <div className="space-y-3">
-            <button className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white p-3 rounded-lg hover:from-green-700 hover:to-green-800 transition-all flex items-center">
+            <button className="w-full bg-green-600 text-white p-3 rounded-xl hover:bg-green-700 transition-all flex items-center font-medium">
               <PlayCircle className="w-4 h-4 mr-2" />
               Start Training Session
             </button>
-            <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all flex items-center">
+            <button className="w-full bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700 transition-all flex items-center font-medium">
               <FileText className="w-4 h-4 mr-2" />
               Create Drill Plan
             </button>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white p-3 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all flex items-center">
+            <button className="w-full bg-purple-600 text-white p-3 rounded-xl hover:bg-purple-700 transition-all flex items-center font-medium">
               <Video className="w-4 h-4 mr-2" />
               Review Session Video
             </button>
-            <button className="w-full bg-gradient-to-r from-orange-600 to-orange-700 text-white p-3 rounded-lg hover:from-orange-700 hover:to-orange-800 transition-all flex items-center">
+            <button className="w-full bg-orange-600 text-white p-3 rounded-xl hover:bg-orange-700 transition-all flex items-center font-medium">
               <BarChart3 className="w-4 h-4 mr-2" />
               Performance Analytics
             </button>
@@ -652,34 +652,34 @@ const CoachDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-blue-900 to-black">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-gray-900/80 backdrop-blur-sm border-b border-yellow-500/30">
+      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <Trophy className="text-yellow-400 w-8 h-8 mr-3" />
+              <Trophy className="text-blue-600 w-8 h-8 mr-3" />
               <div>
-                <h1 className="text-xl font-bold text-yellow-400">TAHLEEL.ai</h1>
-                <span className="text-yellow-300 text-xs">Coach Dashboard</span>
+                <h1 className="text-xl font-semibold text-gray-900">TAHLEEL.ai</h1>
+                <span className="text-gray-600 text-xs">Coach Dashboard</span>
               </div>
             </div>
             
             <div className="flex items-center space-x-4">
               <div className="relative">
-                <Bell className="text-blue-300 w-6 h-6 cursor-pointer hover:text-white transition-colors" />
+                <Bell className="text-gray-600 w-6 h-6 cursor-pointer hover:text-gray-900 transition-colors" />
                 {notifications > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {notifications}
                   </span>
                 )}
               </div>
-              <Settings className="text-blue-300 w-6 h-6 cursor-pointer hover:text-white transition-colors" />
+              <Settings className="text-gray-600 w-6 h-6 cursor-pointer hover:text-gray-900 transition-colors" />
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center text-black font-bold">
+                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
                   C
                 </div>
-                <span className="text-white font-semibold">Coach Ahmed</span>
+                <span className="text-gray-900 font-medium">Coach Ahmed</span>
               </div>
             </div>
           </div>
@@ -688,7 +688,7 @@ const CoachDashboard = () => {
 
       <div className="flex">
         {/* Sidebar */}
-        <div className="w-64 bg-gray-900/60 backdrop-blur-sm border-r border-yellow-500/30 min-h-screen p-4">
+        <div className="w-64 bg-white border-r border-gray-200 min-h-screen p-4">
           <nav className="space-y-2">
             {navigationItems.map((item) => {
               const IconComponent = item.icon;
@@ -696,10 +696,10 @@ const CoachDashboard = () => {
                 <button
                   key={item.id}
                   onClick={() => setActiveModule(item.id)}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
                     activeModule === item.id
-                      ? 'bg-yellow-400/20 text-yellow-400 border border-yellow-400/30'
-                      : 'text-blue-300 hover:text-white hover:bg-gray-800/50'
+                      ? 'bg-blue-50 text-blue-600 border border-blue-200'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
                   <IconComponent className="w-5 h-5" />
@@ -710,20 +710,20 @@ const CoachDashboard = () => {
           </nav>
 
           {/* Quick Stats in Sidebar */}
-          <div className="mt-8 p-4 bg-gray-800/50 rounded-lg">
-            <h4 className="text-white font-semibold mb-3 text-sm">Quick Stats</h4>
+          <div className="mt-8 p-4 bg-gray-50 rounded-xl border border-gray-100">
+            <h4 className="text-gray-900 font-semibold mb-3 text-sm">Quick Stats</h4>
             <div className="space-y-2">
               <div className="flex justify-between text-xs">
-                <span className="text-blue-300">Next Match</span>
-                <span className="text-white">4 days</span>
+                <span className="text-gray-600">Next Match</span>
+                <span className="text-gray-900 font-medium">4 days</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-blue-300">Squad Fitness</span>
-                <span className="text-green-400">92%</span>
+                <span className="text-gray-600">Squad Fitness</span>
+                <span className="text-green-600 font-medium">92%</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-blue-300">Available</span>
-                <span className="text-white">9/11</span>
+                <span className="text-gray-600">Available</span>
+                <span className="text-gray-900 font-medium">9/11</span>
               </div>
             </div>
           </div>
