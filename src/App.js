@@ -1,30 +1,261 @@
-<div className="apple-card apple-slide-up" style={{ animationDelay: '0.1s' }}>
-                <div className="p-3 bg-orange-100 rounded-2xl w-fit mb-6">
-                  <TrendingUp className="text-orange-600 w-8 h-8" />
+import React, { useState, useEffect } from 'react';
+import { Search, Shield, TrendingUp, Target, Users, Calendar, AlertCircle, Trophy, BarChart3, Eye, Building, Check, Crown, ChevronRight, CheckCircle, Star, Zap } from 'lucide-react';
+import axios from 'axios';
+import './App.css';
+
+// FIXED API URL - pointing to your Render backend
+const API_BASE_URL = 'https://tahleel-ai-backend.onrender.com/api';
+
+const App = () => {
+  const [currentPage, setCurrentPage] = useState('login');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [analysisData, setAnalysisData] = useState(null);
+  const [error, setError] = useState('');
+  const [selectedTier, setSelectedTier] = useState('');
+
+  // Check authentication on mount
+  useEffect(() => {
+    const auth = localStorage.getItem('tahleel_auth');
+    if (auth === 'true') {
+      setIsAuthenticated(true);
+      setCurrentPage('main');
+    }
+  }, []);
+
+  const handleLogin = (password) => {
+    if (password === 'tahleel2025') {
+      setIsAuthenticated(true);
+      localStorage.setItem('tahleel_auth', 'true');
+      setCurrentPage('main');
+      return true;
+    }
+    return false;
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('tahleel_auth');
+    setCurrentPage('login');
+    setAnalysisData(null);
+  };
+
+  const startAnalysis = async (opponent) => {
+    setLoading(true);
+    setError('');
+    
+    try {
+      console.log('Sending request to:', `${API_BASE_URL}/analysis`);
+      const response = await axios.post(`${API_BASE_URL}/analysis`, {
+        opponent: opponent
+      }, {
+        timeout: 30000 // 30 second timeout
+      });
+      
+      setAnalysisData(response.data);
+      setCurrentPage('strategy');
+    } catch (err) {
+      console.error('Analysis error:', err);
+      setError(`Failed to analyze team: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const navigateToSubscriptions = () => {
+    setCurrentPage('subscriptions');
+  };
+
+  const navigateToRegistration = () => {
+    setCurrentPage('registration');
+  };
+
+  const selectTier = (tierName) => {
+    setSelectedTier(tierName);
+  };
+
+  const goBackToSubscriptions = () => {
+    setCurrentPage('subscriptions');
+  };
+
+  // Login Page Component
+  const LoginPage = () => {
+    const [password, setPassword] = useState('');
+    const [loginError, setLoginError] = useState('');
+
+    const handleSubmit = () => {
+      if (handleLogin(password)) {
+        setLoginError('');
+      } else {
+        setLoginError('Invalid password. Use: tahleel2025');
+      }
+    };
+
+    return (
+      <div className="min-h-screen apple-hero flex items-center justify-center">
+        <div className="apple-container-sm">
+          <div className="apple-card apple-fade-in" style={{ maxWidth: '480px', margin: '0 auto' }}>
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center mb-6">
+                <div className="p-4 bg-gradient-to-br from-blue-500 to-orange-500 rounded-3xl mr-4">
+                  <Trophy className="text-white w-12 h-12" />
                 </div>
+                <div>
+                  <h1 className="apple-title-md mb-2">TAHLEEL.ai</h1>
+                  <p className="text-lg font-medium text-orange-500 apple-arabic">تحليل</p>
+                </div>
+              </div>
+              <p className="apple-subtitle">Football Tactical Analysis Platform</p>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <label className="block text-gray-700 text-sm font-semibold mb-3">
+                  Access Code
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="apple-input"
+                  placeholder="Enter access code"
+                  onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
+                />
+              </div>
+
+              {loginError && (
+                <div className="flex items-center text-red-500 text-sm bg-red-50 p-3 rounded-lg">
+                  <AlertCircle className="w-4 h-4 mr-2" />
+                  {loginError}
+                </div>
+              )}
+
+              <button
+                onClick={handleSubmit}
+                className="apple-button-primary w-full"
+              >
+                Access Platform
+              </button>
+            </div>
+
+            <div className="mt-8 text-center text-gray-400 text-sm">
+              <p>© 2025 Auwire Technologies</p>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   };
 
-  // Main component render
-  if (!isAuthenticated) {
-    return <LoginPage />;
-  }
+  // Main Dashboard Component
+  const MainPage = () => {
+    const [opponent, setOpponent] = useState('');
 
-  switch (currentPage) {
-    case 'main':
-      return <MainPage />;
-    case 'strategy':
-      return <StrategyPage />;
-    case 'subscriptions':
-      return <SubscriptionPage />;
-    case 'registration':
-      return <RegistrationPage />;
-    default:
-      return <MainPage />;
-  }
-};
+    const handleAnalysis = () => {
+      if (opponent.trim()) {
+        startAnalysis(opponent);
+      }
+    };
 
-export default App;
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <header className="apple-header">
+          <div className="apple-container">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center">
+                <div className="p-2 bg-gradient-to-br from-blue-500 to-orange-500 rounded-2xl mr-3">
+                  <Trophy className="text-white w-6 h-6" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-gray-900">TAHLEEL.ai</h1>
+                  <span className="text-orange-500 text-xs apple-arabic">تحليل</span>
+                </div>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="apple-nav-item"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <main className="apple-section-lg">
+          <div className="apple-container">
+            <div className="text-center mb-16 apple-fade-in">
+              <h2 className="apple-title-xl">
+                AI-Powered Football Analysis
+              </h2>
+              <p className="apple-subtitle max-w-3xl mx-auto">
+                Get winning strategies against any opponent with advanced AI analysis
+              </p>
+            </div>
+
+            <div className="max-w-2xl mx-auto mb-16 apple-slide-up">
+              <div className="apple-card">
+                <h3 className="apple-title-md text-center mb-8">
+                  Start Analysis
+                </h3>
+                
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-gray-700 text-sm font-semibold mb-3">
+                      Opponent Team Name
+                    </label>
+                    <input
+                      type="text"
+                      value={opponent}
+                      onChange={(e) => setOpponent(e.target.value)}
+                      className="apple-input"
+                      placeholder="e.g., Real Madrid, Manchester City, Al Hilal"
+                      onKeyPress={(e) => e.key === 'Enter' && handleAnalysis()}
+                    />
+                  </div>
+
+                  {error && (
+                    <div className="flex items-center text-red-500 text-sm bg-red-50 p-4 rounded-lg">
+                      <AlertCircle className="w-4 h-4 mr-2" />
+                      {error}
+                    </div>
+                  )}
+
+                  <button
+                    onClick={handleAnalysis}
+                    disabled={loading}
+                    className="apple-button-primary w-full flex items-center justify-center"
+                  >
+                    {loading ? (
+                      <>
+                        <div className="apple-loading mr-3"></div>
+                        Analyzing...
+                      </>
+                    ) : (
+                      <>
+                        <Search className="w-5 h-5 mr-2" />
+                        Generate Strategy
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="apple-grid apple-grid-cols-3">
+              <div className="apple-card apple-slide-up">
+                <div className="p-3 bg-blue-100 rounded-2xl w-fit mb-6">
+                  <Target className="text-blue-600 w-8 h-8" />
+                </div>
+                <h3 className="apple-title-md mb-4">Tactical Analysis</h3>
+                <p className="apple-body">
+                  Deep dive into opponent formations, patterns, and weaknesses
+                </p>
+              </div>
+
+              <div className="apple-card apple-slide-up" style={{ animationDelay: '0.1s' }}>
+                <div className="p-3 bg-orange-100 rounded-2xl w-fit mb-6">
+                  <TrendingUp className="text-orange-600 w-8 h-8" />
+                </div>
                 <h3 className="apple-title-md mb-4">News Intelligence</h3>
                 <p className="apple-body">
                   Real-time updates on injuries, transfers, and team changes
@@ -787,260 +1018,27 @@ export default App;
             </div>
           </div>
         </main>
-      </div>import React, { useState, useEffect } from 'react';
-import { Search, Shield, TrendingUp, Target, Users, Calendar, AlertCircle, Trophy, BarChart3, Eye, Building, Check, Crown, ChevronRight, CheckCircle, Star, Zap } from 'lucide-react';
-import axios from 'axios';
-import './App.css';
-
-// FIXED API URL - pointing to your Render backend
-const API_BASE_URL = 'https://tahleel-ai-backend.onrender.com/api';
-
-const App = () => {
-  const [currentPage, setCurrentPage] = useState('login');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [analysisData, setAnalysisData] = useState(null);
-  const [error, setError] = useState('');
-  const [selectedTier, setSelectedTier] = useState('');
-
-  // Check authentication on mount
-  useEffect(() => {
-    const auth = localStorage.getItem('tahleel_auth');
-    if (auth === 'true') {
-      setIsAuthenticated(true);
-      setCurrentPage('main');
-    }
-  }, []);
-
-  const handleLogin = (password) => {
-    if (password === 'tahleel2025') {
-      setIsAuthenticated(true);
-      localStorage.setItem('tahleel_auth', 'true');
-      setCurrentPage('main');
-      return true;
-    }
-    return false;
-  };
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('tahleel_auth');
-    setCurrentPage('login');
-    setAnalysisData(null);
-  };
-
-  const startAnalysis = async (opponent) => {
-    setLoading(true);
-    setError('');
-    
-    try {
-      console.log('Sending request to:', `${API_BASE_URL}/analysis`);
-      const response = await axios.post(`${API_BASE_URL}/analysis`, {
-        opponent: opponent
-      }, {
-        timeout: 30000 // 30 second timeout
-      });
-      
-      setAnalysisData(response.data);
-      setCurrentPage('strategy');
-    } catch (err) {
-      console.error('Analysis error:', err);
-      setError(`Failed to analyze team: ${err.message}`);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const navigateToSubscriptions = () => {
-    setCurrentPage('subscriptions');
-  };
-
-  const navigateToRegistration = () => {
-    setCurrentPage('registration');
-  };
-
-  const selectTier = (tierName) => {
-    setSelectedTier(tierName);
-  };
-
-  const goBackToSubscriptions = () => {
-    setCurrentPage('subscriptions');
-  };
-
-  // Login Page Component
-  const LoginPage = () => {
-    const [password, setPassword] = useState('');
-    const [loginError, setLoginError] = useState('');
-
-    const handleSubmit = () => {
-      if (handleLogin(password)) {
-        setLoginError('');
-      } else {
-        setLoginError('Invalid password. Use: tahleel2025');
-      }
-    };
-
-    return (
-      <div className="min-h-screen apple-hero flex items-center justify-center">
-        <div className="apple-container-sm">
-          <div className="apple-card apple-fade-in" style={{ maxWidth: '480px', margin: '0 auto' }}>
-            <div className="text-center mb-8">
-              <div className="flex items-center justify-center mb-6">
-                <div className="p-4 bg-gradient-to-br from-blue-500 to-orange-500 rounded-3xl mr-4">
-                  <Trophy className="text-white w-12 h-12" />
-                </div>
-                <div>
-                  <h1 className="apple-title-md mb-2">TAHLEEL.ai</h1>
-                  <p className="text-lg font-medium text-orange-500 apple-arabic">تحليل</p>
-                </div>
-              </div>
-              <p className="apple-subtitle">Football Tactical Analysis Platform</p>
-            </div>
-
-            <div className="space-y-6">
-              <div>
-                <label className="block text-gray-700 text-sm font-semibold mb-3">
-                  Access Code
-                </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="apple-input"
-                  placeholder="Enter access code"
-                  onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
-                />
-              </div>
-
-              {loginError && (
-                <div className="flex items-center text-red-500 text-sm bg-red-50 p-3 rounded-lg">
-                  <AlertCircle className="w-4 h-4 mr-2" />
-                  {loginError}
-                </div>
-              )}
-
-              <button
-                onClick={handleSubmit}
-                className="apple-button-primary w-full"
-              >
-                Access Platform
-              </button>
-            </div>
-
-            <div className="mt-8 text-center text-gray-400 text-sm">
-              <p>© 2025 Auwire Technologies</p>
-            </div>
-          </div>
-        </div>
       </div>
     );
   };
 
-  // Main Dashboard Component
-  const MainPage = () => {
-    const [opponent, setOpponent] = useState('');
+  // Main component render - FIXED THE SYNTAX ERROR
+  if (!isAuthenticated) {
+    return <LoginPage />;
+  }
 
-    const handleAnalysis = () => {
-      if (opponent.trim()) {
-        startAnalysis(opponent);
-      }
-    };
+  switch (currentPage) {
+    case 'main':
+      return <MainPage />;
+    case 'strategy':
+      return <StrategyPage />;
+    case 'subscriptions':
+      return <SubscriptionPage />;
+    case 'registration':
+      return <RegistrationPage />;
+    default:
+      return <MainPage />;
+  }
+};
 
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <header className="apple-header">
-          <div className="apple-container">
-            <div className="flex justify-between items-center h-16">
-              <div className="flex items-center">
-                <div className="p-2 bg-gradient-to-br from-blue-500 to-orange-500 rounded-2xl mr-3">
-                  <Trophy className="text-white w-6 h-6" />
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold text-gray-900">TAHLEEL.ai</h1>
-                  <span className="text-orange-500 text-xs apple-arabic">تحليل</span>
-                </div>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="apple-nav-item"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </header>
-
-        <main className="apple-section-lg">
-          <div className="apple-container">
-            <div className="text-center mb-16 apple-fade-in">
-              <h2 className="apple-title-xl">
-                AI-Powered Football Analysis
-              </h2>
-              <p className="apple-subtitle max-w-3xl mx-auto">
-                Get winning strategies against any opponent with advanced AI analysis
-              </p>
-            </div>
-
-            <div className="max-w-2xl mx-auto mb-16 apple-slide-up">
-              <div className="apple-card">
-                <h3 className="apple-title-md text-center mb-8">
-                  Start Analysis
-                </h3>
-                
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-gray-700 text-sm font-semibold mb-3">
-                      Opponent Team Name
-                    </label>
-                    <input
-                      type="text"
-                      value={opponent}
-                      onChange={(e) => setOpponent(e.target.value)}
-                      className="apple-input"
-                      placeholder="e.g., Real Madrid, Manchester City, Al Hilal"
-                      onKeyPress={(e) => e.key === 'Enter' && handleAnalysis()}
-                    />
-                  </div>
-
-                  {error && (
-                    <div className="flex items-center text-red-500 text-sm bg-red-50 p-4 rounded-lg">
-                      <AlertCircle className="w-4 h-4 mr-2" />
-                      {error}
-                    </div>
-                  )}
-
-                  <button
-                    onClick={handleAnalysis}
-                    disabled={loading}
-                    className="apple-button-primary w-full flex items-center justify-center"
-                  >
-                    {loading ? (
-                      <>
-                        <div className="apple-loading mr-3"></div>
-                        Analyzing...
-                      </>
-                    ) : (
-                      <>
-                        <Search className="w-5 h-5 mr-2" />
-                        Generate Strategy
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="apple-grid apple-grid-cols-3">
-              <div className="apple-card apple-slide-up">
-                <div className="p-3 bg-blue-100 rounded-2xl w-fit mb-6">
-                  <Target className="text-blue-600 w-8 h-8" />
-                </div>
-                <h3 className="apple-title-md mb-4">Tactical Analysis</h3>
-                <p className="apple-body">
-                  Deep dive into opponent formations, patterns, and weaknesses
-                </p>
-              </div>
-
-              <div className="apple-card apple-slide-up" style={{ animationDelay: '0.1s' }}>
-                <div className="p-3 bg-orange-100 rounded-2xl w-fit mb-6">
-                  <Trending
+export default App;
