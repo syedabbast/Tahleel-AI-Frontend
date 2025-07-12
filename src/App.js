@@ -2,6 +2,29 @@
                 <div className="p-3 bg-orange-100 rounded-2xl w-fit mb-6">
                   <TrendingUp className="text-orange-600 w-8 h-8" />
                 </div>
+    );
+  };
+
+  // Main component render
+  if (!isAuthenticated) {
+    return <LoginPage />;
+  }
+
+  switch (currentPage) {
+    case 'main':
+      return <MainPage />;
+    case 'strategy':
+      return <StrategyPage />;
+    case 'subscriptions':
+      return <SubscriptionPage />;
+    case 'registration':
+      return <RegistrationPage />;
+    default:
+      return <MainPage />;
+  }
+};
+
+export default App;
                 <h3 className="apple-title-md mb-4">News Intelligence</h3>
                 <p className="apple-body">
                   Real-time updates on injuries, transfers, and team changes
