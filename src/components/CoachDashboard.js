@@ -23,7 +23,7 @@ const DEMO_TEAM = {
   colors: { primary: "#1E40AF", secondary: "#3B82F6" }
 };
 
-const CoachDashboard = () => {
+const CoachDashboard = ({ onLogout }) => {
   const [activeModule, setActiveModule] = useState('dashboard');
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [notifications] = useState(3);
@@ -405,11 +405,17 @@ const CoachDashboard = () => {
                 )}
               </div>
               <Settings className="text-gray-600 w-6 h-6 cursor-pointer hover:text-gray-900 transition-colors" />
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
                   {DEMO_TEAM.coach.charAt(0)}
                 </div>
                 <span className="text-gray-900 font-medium">{DEMO_TEAM.coach}</span>
+                <button
+                  onClick={onLogout}
+                  className="text-gray-600 hover:text-gray-900 transition-colors font-medium ml-4"
+                >
+                  Logout
+                </button>
               </div>
             </div>
           </div>
