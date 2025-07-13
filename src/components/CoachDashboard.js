@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { 
   Trophy, Users, Target, BarChart3, Calendar, Bell, Settings, 
-  Search, Filter, Plus, TrendingUp, AlertCircle,
-  Activity, Zap, Shield, PlayCircle, 
-  FileText, ChevronRight, Star,
-  Heart, Brain, Timer, Flag, Home, 
-  Video
+  Search, Activity, Zap, Shield, PlayCircle, 
+  FileText, Brain, Flag, Home
 } from 'lucide-react';
 
 // Demo Team Data
@@ -25,7 +22,6 @@ const DEMO_TEAM = {
 
 const CoachDashboard = ({ onLogout }) => {
   const [activeModule, setActiveModule] = useState('dashboard');
-  const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [notifications] = useState(3);
 
   // Mock Data with realistic Saudi league context
@@ -100,26 +96,6 @@ const CoachDashboard = ({ onLogout }) => {
       avgGoalsAgainst: 0.9,
       possession: 58,
       passAccuracy: 84
-    }
-  };
-
-  const getAvailabilityColor = (availability) => {
-    switch (availability) {
-      case 'available': return 'text-green-600';
-      case 'minor_injury': return 'text-amber-600';
-      case 'suspended': return 'text-red-600';
-      case 'major_injury': return 'text-red-700';
-      default: return 'text-gray-500';
-    }
-  };
-
-  const getAvailabilityBg = (availability) => {
-    switch (availability) {
-      case 'available': return 'bg-green-50 border-green-200';
-      case 'minor_injury': return 'bg-amber-50 border-amber-200';
-      case 'suspended': return 'bg-red-50 border-red-200';
-      case 'major_injury': return 'bg-red-100 border-red-300';
-      default: return 'bg-gray-50 border-gray-200';
     }
   };
 
