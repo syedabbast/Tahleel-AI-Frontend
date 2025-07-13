@@ -7,6 +7,20 @@ import CoachDashboard from './components/CoachDashboard';
 // FIXED API URL - pointing to your Render backend
 const API_BASE_URL = 'https://tahleel-ai-backend.onrender.com/api';
 
+// Demo Team Data
+const DEMO_TEAM = {
+  name: "Al Riyadh FC",
+  nameArabic: "نادي الرياض",
+  logo: "🔷",
+  organization: "Saudi Professional League",
+  organizationArabic: "دوري المحترفين السعودي",
+  coach: "Coach Ahmed Al-Mansouri",
+  coachArabic: "المدرب أحمد المنصوري",
+  founded: "1954",
+  stadium: "Prince Faisal bin Fahd Stadium",
+  city: "Riyadh"
+};
+
 const App = () => {
   const [currentPage, setCurrentPage] = useState('login');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -100,6 +114,18 @@ const App = () => {
               </div>
             </div>
             <p className="text-gray-600 text-sm">Football Tactical Analysis Platform</p>
+            
+            {/* Demo Team Badge */}
+            <div className="mt-4 p-3 bg-blue-50 rounded-xl border border-blue-200">
+              <div className="flex items-center justify-center space-x-2 mb-1">
+                <span className="text-2xl">{DEMO_TEAM.logo}</span>
+                <div className="text-left">
+                  <p className="text-blue-800 font-semibold text-sm">{DEMO_TEAM.name}</p>
+                  <p className="text-blue-600 text-xs">{DEMO_TEAM.nameArabic}</p>
+                </div>
+              </div>
+              <p className="text-blue-600 text-xs">{DEMO_TEAM.organization}</p>
+            </div>
           </div>
 
           {/* Login Type Selector */}
@@ -187,13 +213,25 @@ const App = () => {
         <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
-              <div className="flex items-center">
-                <Trophy className="text-blue-600 w-8 h-8 mr-2" />
-                <div>
-                  <h1 className="text-xl font-semibold text-gray-900">TAHLEEL.ai</h1>
-                  <span className="text-gray-600 text-xs">تحليل</span>
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center">
+                  <Trophy className="text-blue-600 w-8 h-8 mr-2" />
+                  <div>
+                    <h1 className="text-xl font-semibold text-gray-900">TAHLEEL.ai</h1>
+                    <span className="text-gray-600 text-xs">تحليل</span>
+                  </div>
+                </div>
+                
+                {/* Team Identity */}
+                <div className="hidden md:flex items-center space-x-2 ml-6 pl-6 border-l border-gray-200">
+                  <span className="text-xl">{DEMO_TEAM.logo}</span>
+                  <div>
+                    <p className="text-gray-900 font-medium text-sm">{DEMO_TEAM.name}</p>
+                    <p className="text-gray-500 text-xs">{DEMO_TEAM.organization}</p>
+                  </div>
                 </div>
               </div>
+              
               <button
                 onClick={handleLogout}
                 className="text-gray-600 hover:text-gray-900 transition-colors font-medium"
@@ -209,9 +247,13 @@ const App = () => {
             <h2 className="text-4xl font-semibold text-gray-900 mb-4">
               AI-Powered Football Analysis
             </h2>
-            <p className="text-gray-600 text-xl max-w-2xl mx-auto">
+            <p className="text-gray-600 text-xl max-w-2xl mx-auto mb-4">
               Get winning strategies against any opponent with advanced AI analysis
             </p>
+            <div className="inline-flex items-center space-x-2 bg-blue-50 px-4 py-2 rounded-xl border border-blue-200">
+              <span className="text-blue-600 text-sm">Currently analyzing for:</span>
+              <span className="text-blue-800 font-semibold text-sm">{DEMO_TEAM.name}</span>
+            </div>
           </div>
 
           <div className="max-w-2xl mx-auto mb-12">
@@ -230,9 +272,12 @@ const App = () => {
                     value={opponent}
                     onChange={(e) => setOpponent(e.target.value)}
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="e.g., Real Madrid, Manchester City, Al Hilal"
+                    placeholder="e.g., Al Hilal, Al Nassr, Al Ittihad, Al Ahli"
                     onKeyPress={(e) => e.key === 'Enter' && handleAnalysis()}
                   />
+                  <p className="text-gray-500 text-xs mt-2">
+                    Try: "Al Hilal" for a comprehensive demo analysis
+                  </p>
                 </div>
 
                 {error && (
@@ -288,6 +333,34 @@ const App = () => {
               </p>
             </div>
           </div>
+
+          {/* Demo Quick Actions */}
+          <div className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 border border-blue-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Demo Actions</h3>
+            <div className="grid md:grid-cols-3 gap-4">
+              <button
+                onClick={() => setOpponent('Al Hilal')}
+                className="text-left p-4 bg-white rounded-xl hover:shadow-md transition-shadow border border-gray-200"
+              >
+                <h4 className="font-medium text-gray-900">Analyze Al Hilal</h4>
+                <p className="text-gray-600 text-sm">Saudi Champions - Full tactical breakdown</p>
+              </button>
+              <button
+                onClick={() => setOpponent('Al Nassr')}
+                className="text-left p-4 bg-white rounded-xl hover:shadow-md transition-shadow border border-gray-200"
+              >
+                <h4 className="font-medium text-gray-900">Analyze Al Nassr</h4>
+                <p className="text-gray-600 text-sm">Ronaldo's team - Star player analysis</p>
+              </button>
+              <button
+                onClick={() => setOpponent('Al Ittihad')}
+                className="text-left p-4 bg-white rounded-xl hover:shadow-md transition-shadow border border-gray-200"
+              >
+                <h4 className="font-medium text-gray-900">Analyze Al Ittihad</h4>
+                <p className="text-gray-600 text-sm">Strategic formation insights</p>
+              </button>
+            </div>
+          </div>
         </main>
       </div>
     );
@@ -300,13 +373,25 @@ const App = () => {
         <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
-              <div className="flex items-center">
-                <Trophy className="text-blue-600 w-8 h-8 mr-2" />
-                <div>
-                  <h1 className="text-xl font-semibold text-gray-900">TAHLEEL.ai</h1>
-                  <span className="text-gray-600 text-xs">تحليل</span>
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center">
+                  <Trophy className="text-blue-600 w-8 h-8 mr-2" />
+                  <div>
+                    <h1 className="text-xl font-semibold text-gray-900">TAHLEEL.ai</h1>
+                    <span className="text-gray-600 text-xs">تحليل</span>
+                  </div>
+                </div>
+                
+                {/* Team Identity */}
+                <div className="hidden md:flex items-center space-x-2 ml-6 pl-6 border-l border-gray-200">
+                  <span className="text-xl">{DEMO_TEAM.logo}</span>
+                  <div>
+                    <p className="text-gray-900 font-medium text-sm">{DEMO_TEAM.name}</p>
+                    <p className="text-gray-500 text-xs">{DEMO_TEAM.organization}</p>
+                  </div>
                 </div>
               </div>
+              
               <div className="flex items-center space-x-4">
                 <button
                   onClick={() => setCurrentPage('main')}
@@ -329,11 +414,20 @@ const App = () => {
           {analysisData && (
             <>
               <div className="text-center mb-8">
+                <div className="flex items-center justify-center space-x-4 mb-4">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-2xl">{DEMO_TEAM.logo}</span>
+                    <span className="text-gray-900 font-semibold">{DEMO_TEAM.name}</span>
+                  </div>
+                  <span className="text-gray-400">vs</span>
+                  <span className="text-gray-900 font-semibold">{analysisData.opponent}</span>
+                </div>
+                
                 <h2 className="text-3xl font-semibold text-gray-900 mb-2">
                   Strategic Analysis Report
                 </h2>
                 <p className="text-gray-600 text-lg">
-                  vs {analysisData.opponent} • {analysisData.date}
+                  {DEMO_TEAM.name} vs {analysisData.opponent} • {analysisData.date}
                 </p>
                 <div className="flex items-center justify-center mt-4">
                   <div className="bg-green-100 text-green-800 px-4 py-2 rounded-xl font-medium border border-green-200">
@@ -441,7 +535,7 @@ const App = () => {
     case 'strategy':
       return <StrategyPage />;
     case 'coach-dashboard':
-      return <CoachDashboard />;
+      return <CoachDashboard onLogout={handleLogout} />;
     default:
       return <MainPage />;
   }
