@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { 
   Trophy, Users, Target, BarChart3, Calendar, Bell, 
-  Search, Activity, Zap, Shield, PlayCircle, 
-  FileText, Brain, Flag, Home, Globe, Plus, Filter,
-  TrendingUp, AlertCircle, Edit, Download, Star,
-  Heart, Timer, Video, Clipboard, Eye
+  Activity, Shield, PlayCircle, 
+  FileText, Brain, Home, Globe
 } from 'lucide-react';
 
 // Demo Team Data with Arabic translations
