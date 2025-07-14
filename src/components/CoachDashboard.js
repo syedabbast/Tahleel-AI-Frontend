@@ -1,108 +1,4 @@
-);
-
-  // Tactics View
-  const TacticsView = () => (
-    <div className={`space-y-6 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <h2 className="text-2xl font-semibold text-gray-900">{t('tacticalBoard')}</h2>
-        <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
-          <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-xl hover:bg-gray-200 transition-colors flex items-center font-medium">
-            <Download className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-            {t('loadFormation')}
-          </button>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center">
-            <Plus className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-            {t('saveFormation')}
-          </button>
-        </div>
-      </div>
-
-      {/* Formation Board */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <div className="bg-green-600 rounded-xl p-6 mb-6" style={{ backgroundImage: 'linear-gradient(90deg, #16a34a 50%, #15803d 50%)' }}>
-          <div className="relative h-96 border-2 border-white rounded-lg">
-            {/* Goal Areas */}
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-8 border-2 border-white"></div>
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-8 border-2 border-white"></div>
-            
-            {/* Center Circle */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 border-2 border-white rounded-full"></div>
-            
-            {/* Sample Formation Positions */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">GK</div>
-            <div className="absolute bottom-16 left-1/4 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">CB</div>
-            <div className="absolute bottom-16 right-1/4 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">CB</div>
-            <div className="absolute bottom-16 left-8 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">LB</div>
-            <div className="absolute bottom-16 right-8 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">RB</div>
-            <div className="absolute bottom-32 left-1/3 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-            <div className="absolute bottom-32 right-1/3 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-            <div className="absolute bottom-48 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">AM</div>
-            <div className="absolute bottom-64 left-8 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">LW</div>
-            <div className="absolute bottom-64 right-8 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">RW</div>
-            <div className="absolute bottom-80 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">ST</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Formation Presets and Instructions */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('formationPresets')}</h3>
-          <div className="grid grid-cols-2 gap-3">
-            {['4-3-3', '4-4-2', '3-5-2', '4-2-3-1', '5-3-2', '4-1-4-1'].map((formation, idx) => (
-              <button key={idx} className="bg-gray-50 text-gray-900 p-3 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-all font-medium border border-gray-200">
-                {formation}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('instructions')}</h3>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-gray-700 text-sm font-medium mb-2">{t('attackingStyle')}</label>
-              <select className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Possession</option>
-                <option>Counter Attack</option>
-                <option>Direct</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-gray-700 text-sm font-medium mb-2">{t('defensiveLine')}</label>
-              <select className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>High</option>
-                <option>Medium</option>
-                <option>Deep</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-gray-700 text-sm font-medium mb-2">{t('pressing')}</label>
-              <select className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>High</option>
-                <option>Medium</option>
-                <option>Low</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Tactical Scenarios */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('tacticalScenarios')}</h3>
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
-            <h4 className="text-green-800 font-semibold mb-2">{t('leading10')}</h4>
-            <p className="text-green-700 text-sm mb-3">{t('defensiveStability')}</p>
-            <button className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium">
-              {t('apply')}
-            </button>
-          </div>
-          <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
-            <h4 className="text-red-800 font-semibold mb-2">{t('trailing01')}</h4>
-            <p className="text-red-700 text-sm mb-3">{t('attackingOverload')}</p>
-            import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   Trophy, Users, Target, BarChart3, Calendar, Bell, Settings, 
   Search, Activity, Zap, Shield, PlayCircle, 
@@ -748,492 +644,90 @@ const CoachDashboard = ({ onLogout }) => {
     </div>
   );
 
-  // Analysis View
-  const AnalysisView = () => (
-    <div className={`space-y-6 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <h2 className="text-2xl font-semibold text-gray-900">{t('opponentAnalysis')}</h2>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center">
-          <Plus className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-          {t('newAnalysis')}
-        </button>
-      </div>
+  // Main render function
+  const renderActiveView = () => {
+    switch (activeModule) {
+      case 'dashboard': return <DashboardView />;
+      default: return <DashboardView />;
+    }
+  };
 
-      {/* Search and Create New Analysis */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('startNewAnalysis')}</h3>
-        <div className={`flex space-x-4 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
-          <input
-            type="text"
-            value={opponentInput}
-            onChange={(e) => setOpponentInput(e.target.value)}
-            placeholder={t('enterOpponentName')}
-            className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-          <button className="bg-blue-600 text-white font-medium py-3 px-8 rounded-xl hover:bg-blue-700 transition-all flex items-center">
-            <Search className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-            {t('analyze')}
-          </button>
-        </div>
-      </div>
-
-      {/* Analysis Categories */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[
-          { title: t('tacticalAnalysisCategory'), icon: Brain, color: "purple", desc: t('formationAnalysis') },
-          { title: t('playerAnalysisCategory'), icon: Users, color: "blue", desc: t('keyPlayersWeaknesses') },
-          { title: t('setPiecesCategory'), icon: Flag, color: "green", desc: t('deadBallSituations') },
-          { title: t('recentFormCategory'), icon: TrendingUp, color: "amber", desc: t('latestPerformanceTrends') },
-          { title: t('injuryReportsCategory'), icon: Heart, color: "red", desc: t('playerAvailability') },
-          { title: t('newsIntelligenceCategory'), icon: Bell, color: "orange", desc: t('latestTeamUpdates') }
-        ].map((category, idx) => (
-          <div key={idx} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all cursor-pointer">
-            <category.icon className={`text-${category.color}-600 w-8 h-8 mb-3`} />
-            <h3 className="text-gray-900 font-semibold mb-2">{category.title}</h3>
-            <p className="text-gray-600 text-sm">{category.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Recent Analyses */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('recentAnalyses')}</h3>
-        <div className="space-y-3">
-          {mockData.recentAnalysis.map((analysis, idx) => (
-            <div key={idx} className={`flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
-                <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-semibold text-sm">
-                  {(isRTL ? analysis.opponentArabic : analysis.opponent).substring(0, 2)}
-                </div>
+  return (
+    <div className={`min-h-screen bg-gray-50 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`flex justify-between items-center h-16 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
+              <div className={`flex items-center space-x-2 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
+                <div className="text-2xl">{DEMO_TEAM.logo}</div>
                 <div className={isRTL ? 'text-right' : 'text-left'}>
-                  <h4 className="text-gray-900 font-semibold">
-                    {isRTL ? analysis.opponentArabic : analysis.opponent}
-                  </h4>
-                  <p className="text-gray-600 text-sm">{analysis.date}</p>
-                </div>
-              </div>
-              <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
-                <div className="text-center">
-                  <p className="text-green-600 font-semibold">{analysis.confidence}%</p>
-                  <p className="text-gray-500 text-xs">{t('confidence')}</p>
-                </div>
-                <button className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-                  {t('view')}
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-  // Squad Management View
-  const SquadView = () => (
-    <div className={`space-y-6 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <h2 className="text-2xl font-semibold text-gray-900">{t('squadManagement')}</h2>
-        <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
-          <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-xl hover:bg-gray-200 transition-colors flex items-center font-medium">
-            <Filter className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-            {t('filter')}
-          </button>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center">
-            <Plus className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-            {t('addPlayer')}
-          </button>
-        </div>
-      </div>
-
-      {/* Squad Overview Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="text-center">
-            <Users className="text-blue-600 w-8 h-8 mx-auto mb-2" />
-            <h3 className="text-2xl font-semibold text-gray-900">{mockData.squad.length}</h3>
-            <p className="text-blue-600 text-sm">{t('totalPlayers')}</p>
-          </div>
-        </div>
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="text-center">
-            <Heart className="text-green-600 w-8 h-8 mx-auto mb-2" />
-            <h3 className="text-2xl font-semibold text-gray-900">
-              {mockData.squad.filter(p => p.availability === 'available').length}
-            </h3>
-            <p className="text-green-600 text-sm">{t('available')}</p>
-          </div>
-        </div>
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="text-center">
-            <AlertCircle className="text-amber-600 w-8 h-8 mx-auto mb-2" />
-            <h3 className="text-2xl font-semibold text-gray-900">
-              {mockData.squad.filter(p => p.availability === 'minor_injury').length}
-            </h3>
-            <p className="text-amber-600 text-sm">{t('minorInjuries')}</p>
-          </div>
-        </div>
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="text-center">
-            <Shield className="text-red-600 w-8 h-8 mx-auto mb-2" />
-            <h3 className="text-2xl font-semibold text-gray-900">
-              {mockData.squad.filter(p => p.availability === 'suspended').length}
-            </h3>
-            <p className="text-red-600 text-sm">{t('suspended')}</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Squad Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {mockData.squad.map((player) => (
-          <div 
-            key={player.id} 
-            className={`bg-white rounded-2xl p-4 shadow-sm border hover:shadow-md transition-all cursor-pointer ${getAvailabilityBg(player.availability)}`}
-            onClick={() => setSelectedPlayer(player)}
-          >
-            <div className={`flex items-center justify-between mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className="text-2xl">{player.nationality}</div>
-              <div className={`px-2 py-1 rounded-lg text-xs font-semibold ${getAvailabilityColor(player.availability)} bg-white`}>
-                {player.position}
-              </div>
-            </div>
-            
-            <h3 className="text-gray-900 font-semibold text-sm mb-2">
-              {isRTL ? player.nameArabic : player.name}
-            </h3>
-            
-            <div className="space-y-2">
-              <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <span className="text-gray-600 text-xs">{t('fitness')}</span>
-                <span className="text-gray-900 text-xs font-semibold">{player.fitness}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-1.5">
-                <div 
-                  className="bg-green-500 h-1.5 rounded-full transition-all duration-300"
-                  style={{ width: `${player.fitness}%` }}
-                ></div>
-              </div>
-              
-              <div className={`flex items-center justify-between mt-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <span className="text-gray-600 text-xs">{t('form')}</span>
-                <div className={`flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <Star className={`text-amber-500 w-3 h-3 ${isRTL ? 'ml-1' : 'mr-1'}`} />
-                  <span className="text-gray-900 text-xs font-semibold">{player.form}</span>
-                </div>
-              </div>
-              
-              <div className={`text-center text-xs font-semibold ${getAvailabilityColor(player.availability)} mt-2`}>
-                {player.availability.replace('_', ' ').toUpperCase()}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Player Detail Modal */}
-      {selectedPlayer && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-6 shadow-xl max-w-md w-full">
-            <div className={`flex items-center justify-between mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <h3 className="text-xl font-semibold text-gray-900">
-                {isRTL ? selectedPlayer.nameArabic : selectedPlayer.name}
-              </h3>
-              <button 
-                onClick={() => setSelectedPlayer(null)}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                ✕
-              </button>
-            </div>
-            
-            <div className="space-y-4">
-              <div className="text-center">
-                <div className="text-4xl mb-2">{selectedPlayer.nationality}</div>
-                <div className={`inline-block px-3 py-1 rounded-lg text-sm font-semibold ${getAvailabilityBg(selectedPlayer.availability)} ${getAvailabilityColor(selectedPlayer.availability)}`}>
-                  {selectedPlayer.position}
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-3 bg-gray-50 rounded-xl">
-                  <p className="text-gray-600 text-sm">{t('fitness')}</p>
-                  <p className="text-gray-900 text-xl font-semibold">{selectedPlayer.fitness}%</p>
-                </div>
-                <div className="text-center p-3 bg-gray-50 rounded-xl">
-                  <p className="text-gray-600 text-sm">{t('form')}</p>
-                  <p className="text-gray-900 text-xl font-semibold">{selectedPlayer.form}</p>
-                </div>
-              </div>
-              
-              <div className="text-center">
-                <p className="text-gray-600 text-sm mb-1">{t('status')}</p>
-                <p className={`font-semibold ${getAvailabilityColor(selectedPlayer.availability)}`}>
-                  {selectedPlayer.availability.replace('_', ' ').toUpperCase()}
-                </p>
-              </div>
-              
-              <div className={`flex space-x-2 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
-                <button className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition-colors font-medium">
-                  {t('viewStats')}
-                </button>
-                <button className="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-xl hover:bg-gray-200 transition-colors font-medium">
-                  {t('editPlayer')}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-
-  // Training View
-  const TrainingView = () => (
-    <div className={`space-y-6 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <h2 className="text-2xl font-semibold text-gray-900">{t('trainingManagement')}</h2>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center">
-          <Plus className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-          {t('planSession')}
-        </button>
-      </div>
-
-      {/* Training Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <div className={`flex items-center justify-between mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <Calendar className="text-purple-600 w-8 h-8" />
-            <span className="text-purple-600 text-sm font-medium">{t('thisWeek')}</span>
-          </div>
-          <h3 className="text-2xl font-semibold text-gray-900">4</h3>
-          <p className="text-gray-600 text-sm">{t('trainingSessions')}</p>
-        </div>
-        
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <div className={`flex items-center justify-between mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <Timer className="text-green-600 w-8 h-8" />
-            <span className="text-green-600 text-sm font-medium">Total</span>
-          </div>
-          <h3 className="text-2xl font-semibold text-gray-900">5.5h</h3>
-          <p className="text-gray-600 text-sm">{t('trainingTime')}</p>
-        </div>
-        
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <div className={`flex items-center justify-between mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <Target className="text-blue-600 w-8 h-8" />
-            <span className="text-blue-600 text-sm font-medium">{t('focus')}</span>
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900">{t('tactical')}</h3>
-          <p className="text-gray-600 text-sm">Primary Focus</p>
-        </div>
-      </div>
-
-      {/* This Week's Schedule */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('thisWeeksSchedule')}</h3>
-        <div className="grid gap-4">
-          {mockData.trainingSchedule.map((session, idx) => (
-            <div key={idx} className={`flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
-                <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center">
-                  <Calendar className="text-white w-6 h-6" />
-                </div>
-                <div className={isRTL ? 'text-right' : 'text-left'}>
-                  <h4 className="text-gray-900 font-semibold">
-                    {isRTL ? session.typeArabic : session.type}
-                  </h4>
+                  <h1 className="text-lg font-semibold text-gray-900">
+                    {t('coachDashboard')}
+                  </h1>
                   <p className="text-gray-600 text-sm">
-                    {isRTL ? session.focusArabic : session.focus}
+                    {isRTL ? DEMO_TEAM.nameArabic : DEMO_TEAM.name}
                   </p>
                 </div>
               </div>
-              <div className={`text-${isRTL ? 'left' : 'right'}`}>
-                <p className="text-gray-900 font-semibold">{session.date}</p>
-                <p className="text-blue-600 text-sm font-medium">{session.duration}</p>
-              </div>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Training Categories and Quick Actions */}
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('trainingCategories')}</h3>
-          <div className="space-y-3">
-            {[
-              { name: t('tacticalTraining'), icon: Brain, sessions: 8 },
-              { name: "Physical Conditioning", icon: Activity, sessions: 6 },
-              { name: "Technical Skills", icon: Target, sessions: 4 },
-              { name: "Set Pieces", icon: Flag, sessions: 3 }
-            ].map((category, idx) => (
-              <div key={idx} className={`flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <div className={`flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <category.icon className={`w-5 h-5 text-purple-600 ${isRTL ? 'ml-3' : 'mr-3'}`} />
-                  <span className="text-gray-900 font-medium">{category.name}</span>
-                </div>
-                <span className="text-gray-500 text-sm">{category.sessions} {t('sessions')}</span>
+            
+            <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
+              <LanguageToggle />
+              
+              <div className="relative">
+                <Bell className="text-gray-600 w-6 h-6 cursor-pointer hover:text-gray-900" />
+                {notifications > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {notifications}
+                  </span>
+                )}
               </div>
-            ))}
+              
+              <button
+                onClick={onLogout}
+                className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                {t('logout')}
+              </button>
+            </div>
           </div>
         </div>
+      </header>
 
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('quickActionsTraining')}</h3>
-          <div className="space-y-3">
-            <button className="w-full bg-green-600 text-white p-3 rounded-xl hover:bg-green-700 transition-all flex items-center font-medium">
-              <PlayCircle className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-              {t('startTrainingSession')}
-            </button>
-            <button className="w-full bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700 transition-all flex items-center font-medium">
-              <FileText className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-              {t('createDrillPlan')}
-            </button>
-            <button className="w-full bg-purple-600 text-white p-3 rounded-xl hover:bg-purple-700 transition-all flex items-center font-medium">
-              <Video className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-              {t('reviewSessionVideo')}
-            </button>
-            <button className="w-full bg-orange-600 text-white p-3 rounded-xl hover:bg-orange-700 transition-all flex items-center font-medium">
-              <BarChart3 className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-              {t('performanceAnalytics')}
-            </button>
-          </div>
-        </div>
+      <div className="flex">
+        {/* Sidebar */}
+        <aside className="w-64 bg-white shadow-sm border-r border-gray-200 min-h-screen">
+          <nav className="p-4">
+            <div className="space-y-2">
+              {navigationItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveModule(item.id)}
+                  className={`w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-left transition-colors ${
+                    activeModule === item.id
+                      ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  } ${isRTL ? 'space-x-reverse flex-row-reverse text-right' : ''}`}
+                >
+                  <item.icon className="w-5 h-5" />
+                  <span className="font-medium">{item.label}</span>
+                </button>
+              ))}
+            </div>
+          </nav>
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 p-6">
+          {renderActiveView()}
+        </main>
       </div>
     </div>
   );
+};
 
-  // Live Match View
-  const LiveMatchView = () => (
-    <div className={`space-y-6 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <h2 className="text-2xl font-semibold text-gray-900">{t('liveMatchCenter')}</h2>
-        <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
-          <div className={`flex items-center space-x-2 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
-            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-green-400 font-semibold">{t('live')}</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Match Header */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <div className={`flex items-center justify-between mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-          <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg mb-2">
-                {DEMO_TEAM.logo}
-              </div>
-              <p className="text-gray-700 font-semibold">{isRTL ? DEMO_TEAM.nameArabic : DEMO_TEAM.name}</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-gray-900 text-white px-6 py-3 rounded-xl">
-                <p className="text-2xl font-bold">{mockData.liveMatchData.score.home} - {mockData.liveMatchData.score.away}</p>
-                <p className="text-gray-300 text-sm">{mockData.liveMatchData.minute}'</p>
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-lg mb-2">
-                ⚡
-              </div>
-              <p className="text-gray-700 font-semibold">Opponent</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Quick Tactical Adjustments */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('quickAdjustments')}</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <button className="bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center font-medium">
-            <Target className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-            {t('switchTo442')}
-          </button>
-          <button className="bg-red-600 text-white p-3 rounded-xl hover:bg-red-700 transition-all flex items-center justify-center font-medium">
-            <Zap className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-            {t('highPressMode')}
-          </button>
-          <button className="bg-green-600 text-white p-3 rounded-xl hover:bg-green-700 transition-all flex items-center justify-center font-medium">
-            <Activity className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-            {t('counterAttack')}
-          </button>
-          <button className="bg-purple-600 text-white p-3 rounded-xl hover:bg-purple-700 transition-all flex items-center justify-center font-medium">
-            <Shield className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-            {t('defensiveShape')}
-          </button>
-        </div>
-      </div>
-
-      {/* Live Statistics and Substitutions */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('liveStatistics')}</h3>
-          <div className="space-y-3">
-            {[
-              { stat: t('possession'), home: mockData.liveMatchData.stats.possession.home, away: mockData.liveMatchData.stats.possession.away },
-              { stat: t('shots'), home: mockData.liveMatchData.stats.shots.home, away: mockData.liveMatchData.stats.shots.away },
-              { stat: t('shotsOnTarget'), home: mockData.liveMatchData.stats.shotsOnTarget.home, away: mockData.liveMatchData.stats.shotsOnTarget.away },
-              { stat: t('corners'), home: mockData.liveMatchData.stats.corners.home, away: mockData.liveMatchData.stats.corners.away },
-              { stat: t('fouls'), home: mockData.liveMatchData.stats.fouls.home, away: mockData.liveMatchData.stats.fouls.away }
-            ].map((stat, idx) => (
-              <div key={idx} className="space-y-2">
-                <div className={`flex justify-between text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <span>{stat.home}</span>
-                  <span className="font-medium">{stat.stat}</span>
-                  <span>{stat.away}</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
-                    className="bg-blue-600 h-2 rounded-full" 
-                    style={{ width: `${(stat.home / (stat.home + stat.away)) * 100}%` }}
-                  ></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <div className={`flex items-center justify-between mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <h3 className="text-lg font-semibold text-gray-900">{t('substitutions')}</h3>
-            <button className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-              {t('planSubstitution')}
-            </button>
-          </div>
-          <div className="space-y-3">
-            {mockData.liveMatchData.substitutions.map((sub, idx) => (
-              <div key={idx} className={`flex items-center justify-between p-3 bg-gray-50 rounded-xl ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <div className={`flex items-center space-x-2 ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-gray-900 font-medium text-sm">{sub.in}</span>
-                  <span className="text-gray-500 text-sm">IN</span>
-                </div>
-                <span className="text-gray-500 text-xs">{sub.minute}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Match Timeline */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('matchTimeline')}</h3>
-        <div className="space-y-3">
-          {mockData.liveMatchData.events.map((event, idx) => (
-            <div key={idx} className={`flex items-center space-x-4 p-3 bg-gray-50 rounded-xl ${isRTL ? 'space-x-reverse flex-row-reverse' : ''}`}>
-              <div className={`w-2 h-2 rounded-full ${
-                event.type === 'goal' ? 'bg-green-500' :
-                event.type === 'sub' ? 'bg-blue-500' : 'bg-yellow-500'
-              }`}></div>
-              <span className="text-gray-500 text-sm font-medium min-w-12">{event.minute}</span>
-              <p className="text-gray-900 font-medium text-sm">{event.event}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+export default CoachDashboard;
 
   // Dashboard View
   const DashboardView = () => (
